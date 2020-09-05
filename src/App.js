@@ -7,7 +7,7 @@ function App() {
     return (
         <Switch>
             <Route path='/'>
-                <Home />
+                <Home /> 
             </Route>
         </Switch>
     )
