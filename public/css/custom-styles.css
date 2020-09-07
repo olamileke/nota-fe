@@ -1,18 +1,21 @@
 
 input
 {
-    border-color:rgba(0,0,0,0.18)
+    border-color:rgba(175, 92, 92, 0.18);
+    border-radius:8px;
 }
 
-/* input:focus
+input:focus
 {
     border-color:rgba(140, 47, 57, 0.6);
+    border-radius:0;
 } 
 
-.form__group > input:focus .fa
+
+input:focus + .fa
 {
     color:rgba(140, 47, 57, 0.6);
-} */
+}
 
 .z--9999
 {

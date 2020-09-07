@@ -35,8 +35,8 @@ class Home extends React.Component {
                     <div className='col-start-2 col-end-6 flex flex-col justify-center text-white h-full quicksand'>
                         <p className='m-0 text-3xl font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
                         <div className='flex flex-row mt-4'>
-                            <p className='p-4 mr-3 cursor-pointer' onClick={this.toggleSignup} style={{ width:"max-content", borderRadius:"0px 10px 10px 10px", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign Up</p>
-                            <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", borderRadius:"10px 0px 10px 10px",  boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
+                            <p className='p-4 mr-3 cursor-pointer bg-white text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content", background:"#8C2F39" }}>Sign Up</p>
+                            <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
                         </div>
                     </div>
                     <div className='col-start-7 col-end-11 h-full py-12'>
@@ -49,48 +49,55 @@ class Home extends React.Component {
                         <p className='m-0'>nota</p>
                     </div>
                 </div>
-                <div className='bg-offwhite py-32 grid grid-cols-12 quicksand'>
-                    <div className='col-start-2 col-end-12 grid grid-cols-12 gap-3'>
-                        <div className="mb-3 text-lg font-semibold col-span-12">what nota offers</div>
-                        <div className='col-span-7 grid grid-cols-12 h-12 gap-3'>
-                            <div className='relative col-span-6 bg-white shadow-lg flex flex-col p-6'>
-                                <div className='relative mb-5 h-48'>
-                                    <img src="/images/home/phone.jpg" className='w-full h-full object-cover' alt="WYSIWYG" />
-                                    <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.3)" }}></div>
-                                </div>
-                                
-                                <p className='m-0 mb-1 text-lg font-semibold'>WYSIWYG</p>
-                                <p className='m-0'>leverage the wysiwyg mechanisms provided by nota to create and format notes to your
-                                liking.
-                                </p>
-
-                                <div className='absolute left-0 w-24 h-10 bg-burgundyred shadow-lg' style={{ bottom:"-65px" }}></div>
-                            </div>
-                            <div className='col-span-6 bg-white shadow-lg flex flex-col p-6'>
-                                <div className='relative mb-5 h-48'>
-                                    <img src="/images/home/secure.jpg" className='w-full h-full object-cover' alt="WYSIWYG" />
-                                    <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.3)" }}></div>
-                                </div>
-
-                                <p className='m-0 mb-3 text-xl font-semibold'>security</p>
+                <div className='grid grid-cols-12 pt-32 pb-24 bg-offwhite quicksand'>
+                    <div className='col-start-2 col-end-11 grid grid-cols-12'>
+                        <div className='col-span-5 pl-6 font-semibold'>
+                            <img src='/images/home/downloading.svg' />
+                        </div>
+                        <div className='col-start-7 pl-5 col-span-6 flex flex-col justify-center'>
+                             <p className='m-0 text-2xl font-semibold mb-6'>track your note evolution with nota's note versioning feature</p>
+                             <p className='m-0 text-lg mb-2'>
+                                nota has been especially crafted with usability in mind. new versions of your notes are generated every time you save it. 
+                             </p>
+                             <p className='m-0 mb-2 text-lg'>
+                                 take advantage of this to go down memory lane and view the very change and evolution of your note from inception to completion.
+                             </p>
+                             <p className='m-0 text-lg'>
+                                this also makes it remarkably easy to revert to previous versions of your notes. 
+                             </p>
+                        </div>
+                    </div>
+                </div>
+                <div className='py-16 grid grid-cols-12 quicksand'>
+                    <div className='col-start-2 col-end-12  grid grid-cols-12 col-gap-3'>
+                        <div className='col-span-4 relative'>
+                            <img src='/images/home/phone.jpg' className='object-cover w-full' style={{ height:"65vh" }}/>
+                            <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
+                                <p className='m-0 mb-5 text-xl'>WYSIWYG</p>
                                 <p className='m-0'>
-                                    Nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
-                                    script injections.
+                                nota comes powered with a wysiwyg editor enabling you to create nicely formatted text. 
+                                leverage these mechanisms to create and format notes to your liking.
                                 </p>
                             </div>
                         </div>
-                        <div className='relative col-span-5 shadow-lg bg-white flex flex-col p-6' style={{ height:"80vh"}}>
-                            <div className='relative mb-5 h-48'>
-                                <img src="/images/home/integrity.jpg" className='w-full h-full object-cover' alt="data integrity" />
-                                <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.3)" }}></div>
+                        <div className='col-span-4 relative'>
+                            <img src='/images/home/secure.jpg' className='object-cover w-full' style={{ height:"65vh" }}/>
+                            <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
+                                <p className='m-0 mb-5 text-xl'>security</p>
+                                <p className='m-0'>
+                                    nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
+                                    script injections. files and images are also securely stored in the cloud.
+                                </p>
                             </div>
-                            <div className='flex flex-col mb-4'>
-                                <p className='m-0 font-semibold text-md mb-2 lowercase'>Data Integrity</p>
-                                <p className='m-0'>this is a core feature and priority of nota. create, read, update and delete your notes seamlessly.
-                                you never have to bother about missing data anymore </p>
-                            </div>
-                            <div className='m-0 lowercase'>
-                                How about you create your first note with Nota today. <p className='m-0 underline'>signup</p>
+                        </div>
+                        <div className='col-span-4 relative'>
+                            <img src='/images/home/integrity.jpg' className='object-cover w-full' style={{ height:"65vh" }}/>
+                            <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
+                                <p className='m-0 mb-5 text-xl'>note downloads</p>
+                                <p className='m-0'>
+                                    nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
+                                    script injections. files and images are also securely stored in the cloud.
+                                </p>
                             </div>
                         </div>
                     </div>

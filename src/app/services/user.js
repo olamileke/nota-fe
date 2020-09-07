@@ -5,4 +5,9 @@ async function createUser(user) {
     return response;
 }
 
-export { createUser };
+async function authenticate(user) {
+    const response = await API.post('/authenticate', user);
+    return response;
+}
+
+export { createUser, authenticate };

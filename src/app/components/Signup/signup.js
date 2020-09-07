@@ -8,8 +8,7 @@ class Signup extends React.Component {
         super(props);
 
         this.state = { name:'', email:'', password:'', nameIsValid:true,
-        emailIsValid:true, passwordIsValid:true, requestActive:false,
-        requestSuccess:false, requestFailure:false };
+        emailIsValid:true, passwordIsValid:true, requestActive:false };
 
         this.change = this.change.bind(this);
         this.signup = this.signup.bind(this);
@@ -47,14 +46,12 @@ class Signup extends React.Component {
 
         createUser(user)
         .then(response => {
-            console.log(response);
             notifySuccess('Signed up successfully');
             this.setState({ name:'', email:'', password:'', requestActive:false });
         })
         .catch(error => {
             notifyError('An error occured');
             this.setState({ requestActive:false });
-            console.log(error);
         })
     }
 
@@ -91,29 +88,29 @@ class Signup extends React.Component {
         return (
             <div className={this.props.display ? 'transition-all duration-300 ease-in z-50 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center' :
             'transition-all duration-300 ease-in z--9999 opacity-0 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center'}>
-                <div className='relative flex flex-col bg-white w-2/6 quicksand pt-5 pb-8' style={{ borderRadius:"13px", top:"0px", fontFamily:"Kumbh Sans, sans-serif" }}>
+                <div className='relative flex flex-col bg-white w-2/6 quicksand pt-5 pb-8 quicksand' style={{ borderRadius:"13px", top:"0px" }}>
                     <p className='text-center m-0 mb-2 text-2xl'>Hello</p>
                     <p className='text-center m-0 mb-5 text-base text-gray-700'>create your new nota account.</p>
 
                     <form className='px-8 mb-3'>
                         <div className='flex flex-col mb-3 relative'>
-                            <input id='name' type='text' name='name|nameIsValid' value={this.state.name} onChange={this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors border focus:bg-offwhite focus:outline-none p-3 pl-10' style={{ borderRadius:"4px" }} placeholder='full name' autoFocus />
-                            {!this.state.nameIsValid && <p class='m-0 mt-2 text-xs text-red-500'>enter valid first and last names</p>}
+                            <input id='name' type='text' name='name|nameIsValid' value={this.state.name} onChange={this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors border hover:border-grey-700 focus:outline-none p-3 pl-10' placeholder='full name' autoFocus />
                             <i className='duration-300 ease-in transition-colors absolute top-0 left-0 mt-4 ml-3 fa fa-user-circle text-gray-600' style={{ top:"2px" }}></i>
+                            {!this.state.nameIsValid && <p class='m-0 mt-2 text-xs text-red-500' style={{ fontFamily:"Kumbh Sans, sans-serif" }}>enter valid first and last names</p>}
                         </div>
                         <div className='flex flex-col mb-3 relative'>
-                            <input id='email' type='email' name='email|emailIsValid' value={this.state.email} onChange={ this.change} className='quicksand lowercase text-gray-600 duration-300 ease-in transition-colors border focus:bg-offwhite focus:outline-none p-3 pl-10' style={{ borderRadius:"4px" }} placeholder='Email' />
-                            {!this.state.emailIsValid && <p class='m-0 mt-2 text-xs text-red-500'>enter a valid email address</p>}
+                            <input id='email' type='email' name='email|emailIsValid' value={this.state.email} onChange={ this.change} className='quicksand lowercase text-gray-600 duration-300 ease-in transition-colors border hover:border-grey-700 focus:outline-none p-3 pl-10' placeholder='Email' autoFocus/>
                             <i className='duration-300 ease-in transition-colors absolute top-0 left-0 mt-4 ml-3 fa fa-envelope text-gray-600' style={{ top:"2px" }}></i>
+                            {!this.state.emailIsValid && <p class='m-0 mt-2 text-xs text-red-500' style={{ fontFamily:"Kumbh Sans, sans-serif" }}>enter a valid email address</p>}
                         </div>
                         <div className='flex flex-col mb-5 relative'>
-                            <input id='password' type='password' name='password|passwordIsValid'truee={this.state.password} onChange={ this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors focus:bg-offwhite border focus:outline-none p-3 pl-10' style={{ borderRadius:"4px" }} placeholder='password' />
-                            {!this.state.passwordIsValid && <p class='m-0 mt-2 text-xs text-red-500'>must be at least 8 characters</p>}
+                            <input id='password' type='password' name='password|passwordIsValid' value={this.state.password} onChange={ this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors border hover:border-grey-700 border focus:outline-none p-3 pl-10' placeholder='password' />
                             <i className='duration-300 ease-in transition-colors absolute top-0 left-0 mt-4 ml-3 fa fa-key text-gray-600' style={{ top:"2px" }}></i>
+                            {!this.state.passwordIsValid && <p class='m-0 mt-2 text-xs text-red-500' style={{ fontFamily:"Kumbh Sans, sans-serif" }}>must be at least 8 characters</p>}
                         </div>
                         <div className='mb-3 relative'>
-                            <button onClick={this.signup} className='w-full p-3 text-white focus:bg-burgundyred focus:outline-none bg-reddishbrown quicksand' style={{ borderRadius:"10px 10px 10px 0" }}>Signup to Nota</button>
-                            <div className={loaderClasses} style={{ borderRadius:"10px 10px 10px 0" }}>
+                            <button onClick={this.signup} className='w-full p-3 text-white focus:bg-burgundyred focus:outline-none bg-reddishbrown quicksand rounded-lg'>Signup to Nota</button>
+                            <div className={loaderClasses}>
                                 <div className='loader'></div>
                             </div>
                         </div>
