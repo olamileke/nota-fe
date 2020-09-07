@@ -132,6 +132,8 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className={this.state.viewSignup || this.state.viewLogin ? 'fixed top-0 left-0 transition-colors opacity-100 z-20 duration-300 ease-in w-screen h-screen' :
+                'fixed top-0 left-0 transition-colors opacity-0 duration-300 z--9999 ease-in w-screen h-screen'} style={{ backgroundColor:"rgba(0,0,0,0.85)" }}></div>
                 <Signup display={ this.state.viewSignup } login={ this.toggleLogin } close={ this.toggleSignup } />
                 <Login display={ this.state.viewLogin } signup={ this.toggleSignup } close={ this.toggleLogin } />
             </div>

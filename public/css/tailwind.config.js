@@ -11,7 +11,8 @@ module.exports = {
       extend: {
           colors:{
               offwhite:"#FBFBFB",
-              burgundyred:"#832232"
+              burgundyred:"#832232",
+              reddishbrown:"#8C2F39"
           },
           height:{
               '1/4':'25%',
