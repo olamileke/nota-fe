@@ -49,13 +49,13 @@ class Home extends React.Component {
                         <p className='m-0'>nota</p>
                     </div>
                 </div>
-                <div className='grid grid-cols-12 pt-32 pb-24 bg-offwhite quicksand'>
-                    <div className='col-start-2 col-end-11 grid grid-cols-12'>
-                        <div className='col-span-5 pl-6 font-semibold'>
+                <div className='grid grid-cols-12 pt-24 pb-24 bg-offwhite quicksand'>
+                    <div className='col-start-2 col-end-12 pr-12 grid grid-cols-12'>
+                        <div className='col-span-5 px-6 font-semibold'>
                             <img src='/images/home/downloading.svg' />
                         </div>
-                        <div className='col-start-7 pl-5 col-span-6 flex flex-col justify-center'>
-                             <p className='m-0 text-2xl font-semibold mb-6'>track your note evolution with nota's note versioning feature</p>
+                        <div className='col-start-7 px-5 col-span-6 flex flex-col justify-center'>
+                             <p className='m-0 text-xl font-semibold mb-6'>track your note evolution with nota's note versioning feature</p>
                              <p className='m-0 text-lg mb-2'>
                                 nota has been especially crafted with usability in mind. new versions of your notes are generated every time you save it. 
                              </p>
@@ -68,8 +68,9 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='py-16 grid grid-cols-12 quicksand'>
+                <div className='pt-16 pb-20 grid grid-cols-12 quicksand'>
                     <div className='col-start-2 col-end-12  grid grid-cols-12 col-gap-3'>
+                        <div className='col-span-12 text-xl mb-8 font-semibold'>more about nota</div>
                         <div className='col-span-4 relative'>
                             <img src='/images/home/phone.jpg' className='object-cover w-full' style={{ height:"65vh" }}/>
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
@@ -100,6 +101,16 @@ class Home extends React.Component {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className='py-48 flex flex-row justify-center items-center bg-offwhite quicksand'>
+                    <div className='flex flex-col w-1/2 text-center'>
+                        <p className='m-0 mb-5 text-3xl font-semibold'>
+                            "Start writing no matter what. The water does not flow until the faucet is turned on."
+                        </p>
+                        <p className='m-0 text-xl text-right'>
+                            - Louis L'Armour
+                        </p>
                     </div>
                 </div>
                 <div className='py-16 bg-burgundyred grid grid-cols-12 quicksand text-white'>

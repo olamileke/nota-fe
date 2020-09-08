@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './app/components/Home/home';
-import Dashboard from './app/components/Dashboard/dashboard';
+import AuthHome from './app/components/Auth-Home/auth-home';
 
 
 function App() {
@@ -13,12 +13,8 @@ function App() {
             <ToastContainer />
 
             <Switch>
-                <Route path='/dashboard'>
-                    <Dashboard />
-                </Route>
-                <Route path='/'>
-                    <Home /> 
-                </Route>
+                <Route path='/dashboard' component={AuthHome} />
+                <Route path='/' component={Home} />
             </Switch>
         </div>
     )

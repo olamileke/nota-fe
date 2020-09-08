@@ -33,8 +33,8 @@ class Login extends React.Component {
         authenticate(user)
         .then(response => {
             console.log(response);
-            const user = response.data.user;
-            const token = response.data.token;
+            const user = response.data.data.user;
+            const token = response.data.data.token;
 
             localStorage.setItem('nota_user', JSON.stringify(user));
             localStorage.setItem('nota_token', token);
@@ -43,8 +43,14 @@ class Login extends React.Component {
         })
         .catch(error => {
             this.setState({ requestActive:false });
+            console.log(error.response);
+            
+            if(error.response.status == 404) {
+                notifyError('Incorrect username or password');
+                return;
+            }
+
             notifyError('An error occured');
-            console.log(error);
         })
     }
 

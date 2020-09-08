@@ -40,6 +40,20 @@ input:focus + .fa
     animation-timing-function: linear;
 }
 
+.ql-toolbar
+{
+    padding-top:20px !important;
+    padding-bottom:20px !important;
+    font-family:"Quicksand", sans-serif !important;
+}
+
+.ql-editor
+{
+    min-height:280px !important;
+    font-family:"Quicksand", sans-serif !important;
+    font-size:1.1em;
+}
+
 @keyframes spin
 {
     from

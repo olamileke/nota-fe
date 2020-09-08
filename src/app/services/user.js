@@ -10,4 +10,14 @@ async function authenticate(user) {
     return response;
 }
 
-export { createUser, authenticate };
+const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+
+    if(token) {
+        return true;
+    }
+
+    return false;
+}
+
+export { createUser, authenticate, isAuthenticated };
