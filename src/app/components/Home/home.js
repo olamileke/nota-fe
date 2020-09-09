@@ -31,11 +31,11 @@ class Home extends React.Component {
 
         return (
             <div>
-                <div className='relative w-screen grid grid-cols-12 bg-burgundyred' style={{ height:"80vh" }}>
+                <div className='relative w-screen grid grid-cols-12 bg-cloudred' style={{ height:"80vh" }}>
                     <div className='col-start-2 col-end-6 flex flex-col justify-center text-white h-full quicksand'>
                         <p className='m-0 text-3xl font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
                         <div className='flex flex-row mt-4'>
-                            <p className='p-4 mr-3 cursor-pointer bg-white text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content", background:"#8C2F39" }}>Sign Up</p>
+                            <p className='p-4 mr-3 cursor-pointer text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content" }}>Sign Up</p>
                             <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ class Home extends React.Component {
                         </p>
                     </div>
                 </div>
-                <div className='py-16 bg-burgundyred grid grid-cols-12 quicksand text-white'>
+                <div className='py-16 bg-reddishbrown grid grid-cols-12 quicksand text-white'>
                     <div className='col-start-2 col-end-5 flex flex-col'>
                         <p className='m-0 font-semibold text-xl mb-4'>NOTA</p>
                         <p className='m-0'>note taking redefined. take advantage of the latest technology to create your notes and jot down your thoughts.

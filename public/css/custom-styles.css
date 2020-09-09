@@ -40,18 +40,32 @@ input:focus + .fa
     animation-timing-function: linear;
 }
 
+.quill
+{
+    border-color:transparent !important;
+}
+
+.ql-container
+{
+    border-radius:0 0 10px 10px !important;
+    border-color:transparent !important;
+}
+
 .ql-toolbar
 {
-    padding-top:20px !important;
-    padding-bottom:20px !important;
+    padding-top:25px !important;
+    padding-bottom:25px !important;
+    border-radius:10px 10px 0 0 !important;
     font-family:"Quicksand", sans-serif !important;
+    border-color:transparent !important;
 }
 
 .ql-editor
 {
-    min-height:280px !important;
+    min-height:330px !important;
     font-family:"Quicksand", sans-serif !important;
-    font-size:1.1em;
+    font-size:1.2em;
+    -moz-user-focus: true;
 }
 
 @keyframes spin

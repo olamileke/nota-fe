@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from '../Loader/loader';
 import { createUser } from '../../services/user'; 
 import { notifySuccess, notifyError } from '../../services/notify';
 
@@ -50,8 +51,14 @@ class Signup extends React.Component {
             this.setState({ name:'', email:'', password:'', requestActive:false });
         })
         .catch(error => {
-            notifyError('An error occured');
             this.setState({ requestActive:false });
+
+            if(error.response.status == 400) {
+                notifyError('user with email exists!');
+                return;
+            }
+
+            notifyError('an error occured');
         })
     }
 
@@ -80,11 +87,7 @@ class Signup extends React.Component {
     }
 
     render() {
-        let loaderClasses = 'transition-colors ease-in duration-300 z--9999 opacity-0 bg-reddishbrown absolute top-0 left-0 w-full h-full flex flex-row items-center justify-center';
-        if(this.state.requestActive) {
-            loaderClasses = loaderClasses.replace(/z--9999 opacity-0/, 'z-10 opacity-100')
-        }
-
+    
         return (
             <div className={this.props.display ? 'transition-all duration-300 ease-in z-50 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center' :
             'transition-all duration-300 ease-in z--9999 opacity-0 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center'}>
@@ -110,9 +113,7 @@ class Signup extends React.Component {
                         </div>
                         <div className='mb-3 relative'>
                             <button onClick={this.signup} className='w-full p-3 text-white focus:bg-burgundyred focus:outline-none bg-reddishbrown quicksand rounded-lg'>Signup to Nota</button>
-                            <div className={loaderClasses}>
-                                <div className='loader'></div>
-                            </div>
+                            <Loader display={this.state.requestActive} />
                         </div>
                     </form>
                     <hr/>

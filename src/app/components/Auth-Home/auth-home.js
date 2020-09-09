@@ -8,6 +8,10 @@ class AuthHome extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        window.scrollTo(0,0);
+    }
+
     render() {
         return (
             <div className='w-screen min-h-screen bg-offwhite'>

@@ -23,7 +23,7 @@ class Header extends React.Component {
         };
 
         return (
-            <div className='relative w-screen py-12 px-16 text-white quicksand' style={{ background:"#8C2F39" }}>
+            <div className='relative w-screen py-12 px-16 text-white quicksand bg-cloudred'>
                 <div className='absolute top-0 left-0 w-full h-full'>
                     <Particles height='100%' params={{
                         particles: {
@@ -45,7 +45,7 @@ class Header extends React.Component {
                         <div onClick={this.toggleOptions} className='cursor-pointer border-2 border-white flex flex-row justify-center items-center rounded-full w-12 h-12'>
                             N
                         </div>
-                        <div className={optionsClasses} style={{ top:"60%" }}>
+                        <div className={optionsClasses} style={{ top:"60%", borderRadius:"7px 0px 7px 7px" }}>
                             <button className='outline-none py-4 bg-gray-300 text-sm font-semibold text-center w-full'>
                                 { this.user.email }
                             </button>
@@ -59,10 +59,10 @@ class Header extends React.Component {
                     </div>
                 </div>
                 <div className='flex flex-row items-center mb-20'>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold text-gray-600 cursor-pointer z-10'>Overview</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold cursor-pointer z-10'>Create</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold text-gray-600 cursor-pointer z-10'>Notes</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold text-gray-600 cursor-pointer z-10'>Versions</p>
+                    <p className='transition-colors duration-300 ease-in m-0 mr-5 text-white cursor-pointer z-10'>overview</p>
+                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold cursor-pointer z-10'>create</p>
+                    <p className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>notes</p>
+                    <p className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>versions</p>
                 </div>
             </div>
         )

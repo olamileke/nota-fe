@@ -12,7 +12,8 @@ module.exports = {
           colors:{
               offwhite:"#FBFBFB",
               burgundyred:"#832232",
-              reddishbrown:"#8C2F39"
+              reddishbrown:"#8C2F39",
+              cloudred:"#B23A48"
           },
           height:{
               '1/4':'25%',

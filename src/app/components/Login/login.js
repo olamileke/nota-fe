@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Loader from '../Loader/loader';
 import { authenticate } from '../../services/user';
 import { notifySuccess, notifyError } from '../../services/notify';
 
@@ -7,7 +8,7 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { email:'', password:'', emailIsValid:true, passwordIsValid:true, requestFailure:false };
+        this.state = { email:'', password:'', emailIsValid:true, passwordIsValid:true, requestActive:false };
         this.change = this.change.bind(this);
         this.login = this.login.bind(this);
     }
@@ -30,6 +31,7 @@ class Login extends React.Component {
 
         this.setState({ requestActive:true });
         const user = { email:this.state.email, password:this.state.password };
+
         authenticate(user)
         .then(response => {
             console.log(response);
@@ -69,10 +71,6 @@ class Login extends React.Component {
     }
 
     render() {
-        let loaderClasses = 'transition-colors ease-in rounded-lg duration-300 z--9999 opacity-0 bg-reddishbrown absolute top-0 left-0 w-full h-full flex flex-row items-center justify-center';
-        if(this.state.requestActive) {
-            loaderClasses = loaderClasses.replace(/z--9999 opacity-0/, 'z-10 opacity-100')
-        }
 
         return (
             <div className={this.props.display ? 'transition-all duration-300 ease-in z-50 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center' :
@@ -94,9 +92,7 @@ class Login extends React.Component {
                         </div>
                         <div className='mb-3 relative'>
                             <button onClick={this.login} className='focus:outline-none w-full p-3 text-white bg-reddishbrown rounded-lg'>Sign In</button>
-                            <div className={loaderClasses}>
-                                <div className='loader'></div>
-                            </div>
+                            <Loader display={this.state.requestActive} />
                         </div>
                     </form>
                     <hr/>
