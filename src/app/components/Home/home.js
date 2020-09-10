@@ -31,18 +31,18 @@ class Home extends React.Component {
 
         return (
             <div>
-                <div className='relative w-screen grid grid-cols-12 bg-cloudred' style={{ height:"80vh" }}>
-                    <div className='col-start-2 col-end-6 flex flex-col justify-center text-white h-full quicksand'>
-                        <p className='m-0 text-3xl font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
-                        <div className='flex flex-row mt-4'>
+                <div className='relative w-screen grid grid-cols-12 bg-cloudred' style={{ height:"90vh" }}>
+                    <div className='col-start-2 col-end-6 flex flex-col justify-center text-white quicksand' style={{ height:"90vh" }}>
+                        <p className='m-0 text-3xl mb-5 font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
+                        <div className='flex flex-row'>
                             <p className='p-4 mr-3 cursor-pointer text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content" }}>Sign Up</p>
                             <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
                         </div>
                     </div>
-                    <div className='col-start-7 col-end-11 h-full py-12'>
-                        <div className='relative h-full'>
-                            <img src="/images/home/notes.jpg" className='w-full h-full' alt="papers" />
-                            <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.3)" }}></div>
+                    <div className='col-start-7 col-end-11' style={{ height:"90vh" }}>
+                        <div className='relative h-full flex flex-row items-center'>
+                            <img src="/images/home/notes.jpg" className='w-full object-cover h-4/5' alt="papers" />
+                            <div className='absolute top-0 left-0 w-full h-4/5' style={{ backgroundColor:"rgba(0,0,0,0.3)", top:'10%' }}></div>
                         </div>
                     </div>
                     <div className='absolute top-0 left-0 w-screen p-6 text-white quicksand'>
@@ -51,8 +51,9 @@ class Home extends React.Component {
                 </div>
                 <div className='grid grid-cols-12 pt-24 pb-24 bg-offwhite quicksand'>
                     <div className='col-start-2 col-end-12 pr-12 grid grid-cols-12'>
-                        <div className='col-span-5 px-6 font-semibold'>
-                            <img src='/images/home/downloading.svg' />
+                        <div className='col-span-5 mx-6 font-semibold relative' style={{ height:"70vh" }}>
+                            <img src='/images/home/evolution.jpg' className='w-full h-full'/>
+                            <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.1)" }}></div>
                         </div>
                         <div className='col-start-7 px-5 col-span-6 flex flex-col justify-center'>
                              <p className='m-0 text-xl font-semibold mb-6'>track your note evolution with nota's note versioning feature</p>

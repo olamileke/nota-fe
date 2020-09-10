@@ -49,17 +49,17 @@ class Create extends React.Component {
 
     render() {
         return (
-            <div className='flex flex-row items-center'> 
-                <div className='bg-white shadow-lg w-3/4' style={{ borderRadius:"10px" }}>
+            <div> 
+                <div className='relative bg-white shadow-lg w-full'>
                     <ReactQuill value={this.state.content} onChange={this.change} />
-                </div>
-                <div className='flex flex-row w-1/4 h-full items-center justify-center'>
-                    <div className='flex flex-col'>
-                        <div className='w-full relative mb-3'>
-                            <button onClick={this.submit} className='focus:outline-none hover:bg-cloudred w-full bg-reddishbrown p-3 quicksand text-white' style={{ width:"max-content", borderRadius:"4px" }}>save note</button>
+                    <div className='absolute right-0 top-0 flex flex-row items-center mt-4 mr-4'>
+                        <div className='relative mr-5'>
+                            <button onClick={this.submit} className='quicksand text-sm focus:outline-none hover:bg-reddishbrown bg-cloudred w-full p-3 rounded-md text-white' style={{ width:"max-content" }}>add note</button>
                             <Loader display={this.state.requestActive} />
                         </div>
-                        <button className='focus:outline-none w-full bg-white text-reddishbrown font-semibold p-3 quicksand text-black shadow-lg' style={{ borderRadius:"5px 5px 5px 0"  }}>clear</button>
+                        <div className='cursor-pointer font-semibold rounded-md w-10 h-8 flex flex-row justify-center' style={{ background:"rgba(0,0,0,0.05)" }}>
+                            <p className='m-0 text-black'>...</p>
+                        </div>
                     </div>
                 </div>
             </div>

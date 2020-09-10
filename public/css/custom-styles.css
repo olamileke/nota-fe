@@ -62,7 +62,7 @@ input:focus + .fa
 
 .ql-editor
 {
-    min-height:330px !important;
+    min-height:350px !important;
     font-family:"Quicksand", sans-serif !important;
     font-size:1.2em;
     -moz-user-focus: true;

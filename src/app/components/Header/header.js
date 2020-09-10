@@ -23,7 +23,7 @@ class Header extends React.Component {
         };
 
         return (
-            <div className='relative w-screen py-12 px-16 text-white quicksand bg-cloudred'>
+            <div className='relative w-screen py-12 px-24 text-white quicksand bg-reddishbrown'>
                 <div className='absolute top-0 left-0 w-full h-full'>
                     <Particles height='100%' params={{
                         particles: {
@@ -46,23 +46,23 @@ class Header extends React.Component {
                             N
                         </div>
                         <div className={optionsClasses} style={{ top:"60%", borderRadius:"7px 0px 7px 7px" }}>
-                            <button className='outline-none py-4 bg-gray-300 text-sm font-semibold text-center w-full'>
+                            <button className='outline-none py-4 bg-gray-300 font-semibold text-sm text-center w-full'>
                                 { this.user.email }
                             </button>
-                            <button className='outline-none py-4 text-sm font-semibold text-center w-full'>
+                            <button className='outline-none py-4 text-sm text-center w-full'>
                                 Change Avatar
                             </button>
-                            <button className='outline-none py-4 text-center text-sm font-semibold w-full'>
+                            <button className='outline-none py-4 text-center text-sm text-black w-full'>
                                 Sign Out
                             </button>
                         </div>
                     </div>
                 </div>
                 <div className='flex flex-row items-center mb-20'>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 text-white cursor-pointer z-10'>overview</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 font-semibold cursor-pointer z-10'>create</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>notes</p>
-                    <p className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>versions</p>
+                    <p onClick={() => { this.props.view('overview') }} className='transition-colors duration-300 ease-in m-0 mr-5 text-white cursor-pointer z-10'>overview</p>
+                    <p onClick={() => { this.props.view('create') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>create</p>
+                    <p onClick={() => { this.props.view('notes') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>notes</p>
+                    <p onClick={() => { this.props.view('versions') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>versions</p>
                 </div>
             </div>
         )

@@ -5,4 +5,18 @@ async function createNote (note) {
     return response;
 }
 
-export { createNote };
+async function getNotes(limit, page) {
+    let url;
+    if(limit) {
+        url = `/notes?limit=${limit}`;
+    }
+
+    if(page) {
+        url = `/notes?page=${page}`;
+    }
+
+    const response = await API.get(url);
+    return response;
+}
+
+export { createNote, getNotes };
