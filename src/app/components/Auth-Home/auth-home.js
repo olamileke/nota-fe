@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Header/header';
 import Overview from '../Overview/overview';
 import Create from '../Create/create';
+import Notes from '../Notes/notes';
 
 class AuthHome extends React.Component {
 
@@ -40,6 +41,10 @@ class AuthHome extends React.Component {
 
         if(this.state.tabs.create) {
             viewedTab = <Create />
+        }
+
+        if(this.state.tabs.notes) {
+            viewedTab = <Notes />
         }
 
         return (

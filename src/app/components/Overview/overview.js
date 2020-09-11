@@ -2,6 +2,7 @@ import React from 'react';
 import Loader from '../Loader/loader';
 import { getNotes } from '../../services/note';
 import { getActivities } from '../../services/activity';
+import { getTimeFrom } from '../../services/date';
 
 class Overview extends React.Component {
 
@@ -22,7 +23,6 @@ class Overview extends React.Component {
         getNotes(3, null)
         .then(response => {
             this.setState({ notes:response.data.data.notes });
-            alert('done');
         })
     }
 
@@ -34,7 +34,6 @@ class Overview extends React.Component {
             activities = activities.concat(response.data.data.activities);
             const totalActivities = response.data.data.totalActivities;
             this.setState({ activities:activities, activityPage:page, totalActivities:totalActivities, requestActive:false });
-            console.log(response);
         })
     }
 
@@ -55,10 +54,10 @@ class Overview extends React.Component {
                     {note.versions} version(s)
                 </div>
                 <div className='quicksand mb-2'>
-                    created {note.created_at}
+                    created {getTimeFrom(note.created_at)} ago
                 </div>
                 <div className='quicksand mb-2'>
-                    last updated {note.updated_at}
+                    last updated {getTimeFrom(note.updated_at)} ago
                 </div>
             </div>
         })
@@ -76,22 +75,22 @@ class Overview extends React.Component {
                         <div className='absolute top-0 left-0 w-full h-full rounded-full' style={{ background:"rgba(0,0,0,0.0.07)" }}></div>
                     </div>
                     <div className='mr-auto'>
-                        {activity.action == 1 && <p className='m-0'>you created a new note {activity.note_tite} 7d ago</p>}
+                        {activity.action == 1 && <p className='m-0'>{this.user.name} created a new note #{activity.note_title}</p>}
                     </div>
-                    <div>
-                        view
+                    <div className='ml-5'>
+                        {getTimeFrom(activity.created_at)}
                     </div>
                  </div>
             )
         })
 
         if(activities.length > 0) {
-        return (<div className='flex flex-col quicksand p-8'>
-                <p className='m-0 mb-8'>recent activity</p>
+        return (<div className='flex flex-col p-8 quicksand'>
+                <p className='m-0 mb-8 p-2 bg-cloudred rounded text-white' style={{ width:'fit-content' }}>recently</p>
                 <div className='flex flex-col'>
                     {activities}
                 </div>
-                { this.state.activities.length < this.state.totalActivities && <div className='relative'>
+                { this.state.activities.length < this.state.totalActivities && <div className='relative quicksand'>
                     <button onClick={() => {this.fetchActivities(this.state.activityPage + 1)}} className='bg-cloudred focus:outline-none hover:bg-reddishbrown outline-none rounded-md text-white p-3 w-full'>Load More</button>
                     <Loader display={this.state.requestActive} />
                 </div> }

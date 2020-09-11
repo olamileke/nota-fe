@@ -1,0 +1,66 @@
+import React from 'react';
+import { getNotes } from '../../services/note';
+import { getTimeFrom } from '../../services/date';
+
+class Notes extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { notes:[], totaNotes:0, notePage:1 };
+        this.get = this.get.bind(this);
+    }
+
+    componentDidMount() {
+        this.get(1);
+    }
+
+    get(page) {
+        getNotes(null, page)
+        .then(response => {
+            const notes = response.data.data.notes;
+            const totalNotes = response.data.data.totalNotes;
+            this.setState({ notes:notes, totalNotes:totalNotes, notePage:page });
+            console.log(response);
+        })
+    }
+
+    renderNotes() {
+        const notes = [...this.state.notes];
+        return notes.map(note => {
+            return (
+                <div key={note._id} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-8'>
+                    <div className='mb-5' dangerouslySetInnerHTML={{ __html:note.content }} style={{ height:'30vh' }}>
+                    </div> 
+                    <div className='flex flex-row justify-between items-center mb-5'>
+                        <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
+                            {note.title}
+                        </div>
+                        <div className='underline mr-8'>
+                            view
+                        </div>
+                    </div>
+                    <div className='quicksand mb-2'>
+                        {note.versions} version(s)
+                    </div>
+                    <div className='quicksand mb-2'>
+                        created {getTimeFrom(note.created_at)} ago
+                    </div>
+                    <div className='quicksand mb-2'>
+                        last updated {getTimeFrom(note.updated_at)} ago
+                    </div>                   
+                </div>
+            )
+        })
+    }
+
+    render() {
+        const notes = this.renderNotes();
+        return (
+            <div className='grid grid-cols-12 col-gap-5'>
+                {notes}
+            </div>
+        )
+    }
+}
+
+export default Notes;

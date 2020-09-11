@@ -51,7 +51,7 @@ class Home extends React.Component {
                 </div>
                 <div className='grid grid-cols-12 pt-24 pb-24 bg-offwhite quicksand'>
                     <div className='col-start-2 col-end-12 pr-12 grid grid-cols-12'>
-                        <div className='col-span-5 mx-6 font-semibold relative' style={{ height:"70vh" }}>
+                        <div className='col-span-5 font-semibold relative' style={{ height:"70vh" }}>
                             <img src='/images/home/evolution.jpg' className='w-full h-full'/>
                             <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.1)" }}></div>
                         </div>

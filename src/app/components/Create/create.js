@@ -10,13 +10,36 @@ class Create extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { content:'', requestActive:false };
+        this.state = { content:'', title:'', requestActive:false };
         this.change = this.change.bind(this);
+        this.clear = this.clear.bind(this);
         this.submit = this.submit.bind(this);
     }
 
     change(value) {
-        this.setState({ content:value });
+        let title = '';
+
+        if(value.length >= 10) {
+            let [ wordOne, wordTwo, wordThree, ...rest ] = value.split(' ');
+            const splits = wordOne.split('>');
+            wordOne = splits[splits.length - 1];
+
+            if(!wordTwo && !wordThree) {
+                title = value.slice(0,3);
+            }
+            else if(!wordTwo || !wordThree) {
+                title = wordOne.slice(0, 3);
+            }
+            else {
+                title = wordOne.charAt(0) + wordTwo.charAt(0) + wordThree.charAt(0);
+            }
+        }
+
+        this.setState({ content:value, title:title.toLowerCase() });
+    }
+
+    clear() {
+        this.setState({ content:'' });
     }
 
     submit() {
@@ -49,17 +72,20 @@ class Create extends React.Component {
 
     render() {
         return (
-            <div> 
-                <div className='relative bg-white shadow-lg w-full'>
+            <div className='grid grid-cols-12'> 
+                <div className='relative bg-white shadow-lg col-span-6'>
                     <ReactQuill value={this.state.content} onChange={this.change} />
-                    <div className='absolute right-0 top-0 flex flex-row items-center mt-4 mr-4'>
-                        <div className='relative mr-5'>
-                            <button onClick={this.submit} className='quicksand text-sm focus:outline-none hover:bg-reddishbrown bg-cloudred w-full p-3 rounded-md text-white' style={{ width:"max-content" }}>add note</button>
+                </div>
+                <div className='quicksand col-start-8 col-span-4 bg-white shadow-lg flex flex-col p-8' style={{ height:"fit-content" }}>
+                    {this.state.title != '' && <p className='m-0 mb-5 quicksand text-xl font-semibold'>#{this.state.title}</p>}
+                    {this.state.title == '' && <p className='m-0 mb-5 quicksand text-xl font-semibold'>#new</p>}
+
+                    <div className='flex flex-row'>
+                        <div className='relative mr-3'>
+                            <button onClick={this.submit} className='focus:outline-none hover:bg-reddishbrown bg-cloudred w-full p-3 rounded text-white' style={{ width:"max-content" }}>create</button>
                             <Loader display={this.state.requestActive} />
                         </div>
-                        <div className='cursor-pointer font-semibold rounded-md w-10 h-8 flex flex-row justify-center' style={{ background:"rgba(0,0,0,0.05)" }}>
-                            <p className='m-0 text-black'>...</p>
-                        </div>
+                        <button onClick={this.clear} className='focus:outline-none bg-gray-100 hover:bg-gray-200 text-gray-800 p-3 rounded text-black' style={{ width:"max-content" }}>clear</button>
                     </div>
                 </div>
             </div>
