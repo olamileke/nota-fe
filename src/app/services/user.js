@@ -1,13 +1,11 @@
 import API from './api';
 
 async function createUser(user) {
-    const response = await API.post('/users', user);
-    return response;
+    return API.post('/users', user);
 }
 
 async function authenticate(user) {
-    const response = await API.post('/authenticate', user);
-    return response;
+    return API.post('/authenticate', user);
 }
 
 const isAuthenticated = () => {

@@ -1,8 +1,7 @@
 import API from './api';
 
 async function createNote (note) {
-    const response = await API.post('/notes', note);
-    return response;
+    return API.post('/notes', note);
 }
 
 async function getNotes(limit, page) {
@@ -15,8 +14,7 @@ async function getNotes(limit, page) {
         url = `/notes?page=${page}`;
     }
 
-    const response = await API.get(url);
-    return response;
+    return API.get(url);
 }
 
 export { createNote, getNotes };
