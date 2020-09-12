@@ -1,10 +1,10 @@
 import API from './api';
 
-async function createNote (note) {
+function createNote(note) {
     return API.post('/notes', note);
 }
 
-async function getNotes(limit, page) {
+function getNotes(limit, page) {
     let url;
     if(limit) {
         url = `/notes?limit=${limit}`;
@@ -17,4 +17,8 @@ async function getNotes(limit, page) {
     return API.get(url);
 }
 
-export { createNote, getNotes };
+function updateNote(id, note) {
+    return API.put(`/notes/${id}`, note);
+}
+
+export { createNote, getNotes, updateNote };

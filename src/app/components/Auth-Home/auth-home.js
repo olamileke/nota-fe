@@ -8,12 +8,18 @@ class AuthHome extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { tabs:{ overview:true, create:false, notes:false, versions:false } };
+        this.state = { tabs:{ overview:true, create:false, notes:false, versions:false, update:false }, data:{ viewedNote:null, viewedVersion:null } };
         this.switchTab = this.switchTab.bind(this);
+        this.switchToUpdate = this.switchToUpdate.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0,0);
+    }
+
+    switchToUpdate(note) {
+        this.setState({ data:{ viewedNote:note } });
+        this.switchTab('update');
     }
 
     switchTab(view) {
@@ -29,22 +35,26 @@ class AuthHome extends React.Component {
             tabs[tab] = value;
         })
 
-        this.setState({ tabs:tabs });
+        view == 'create' ? this.setState({ tabs:tabs, data:{ viewedNote:null } }) : this.setState({ tabs:tabs });
     }
 
     render() {
         let viewedTab;
 
         if(this.state.tabs.overview) {
-            viewedTab = <Overview />
+            viewedTab = <Overview viewNote={this.switchToUpdate} />
         }
 
         if(this.state.tabs.create) {
-            viewedTab = <Create />
+            viewedTab = <Create note={this.state.data.viewedNote}/>
         }
 
         if(this.state.tabs.notes) {
-            viewedTab = <Notes />
+            viewedTab = <Notes update={this.switchToUpdate} />
+        }
+
+        if(this.state.tabs.update) {
+            viewedTab = <Create note={this.state.data.viewedNote} />
         }
 
         return (

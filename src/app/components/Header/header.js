@@ -62,7 +62,6 @@ class Header extends React.Component {
                     <p onClick={() => { this.props.view('overview') }} className='transition-colors duration-300 ease-in m-0 mr-5 text-white cursor-pointer z-10'>overview</p>
                     <p onClick={() => { this.props.view('create') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>create</p>
                     <p onClick={() => { this.props.view('notes') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>notes</p>
-                    <p onClick={() => { this.props.view('versions') }} className='transition-colors duration-300 ease-in m-0 mr-5 cursor-pointer z-10'>versions</p>
                 </div>
             </div>
         )

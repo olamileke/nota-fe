@@ -35,6 +35,9 @@ class Overview extends React.Component {
             const totalActivities = response.data.data.totalActivities;
             this.setState({ activities:activities, activityPage:page, totalActivities:totalActivities, requestActive:false });
         })
+        .catch(error => {
+            console.log(error.response);
+        })
     }
 
     renderNotes() {
@@ -46,7 +49,7 @@ class Overview extends React.Component {
                     <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
                         {note.title}
                     </div>
-                    <div className='quicksand underline mr-8'>
+                    <div onClick={() => {this.props.viewNote(note)}} className='cursor-pointer quicksand underline mr-8'>
                         view
                     </div>
                 </div>
@@ -70,14 +73,15 @@ class Overview extends React.Component {
             
             return (
                 <div key={activity._id} className={classes}>
-                    <div className='relative mr-5'>
-                        <img src="https://thetrimbucket.s3.us-east-2.amazonaws.com/users/1598570148.3808098leke.JPG" className='w-10 h-10 rounded-full object-cover' />
+                    <div className='relative w-10 h-10 rounded-full mr-5'>
+                        <img src="https://thetrimbucket.s3.us-east-2.amazonaws.com/users/1598570148.3808098leke.JPG" className='w-full h-full rounded-full object-cover' />
                         <div className='absolute top-0 left-0 w-full h-full rounded-full' style={{ background:"rgba(0,0,0,0.0.07)" }}></div>
                     </div>
                     <div className='mr-auto'>
-                        {activity.action == 1 && <p className='m-0'>{this.user.name} created a new note #{activity.note_title}</p>}
+                        {activity.action == 1 && <p className='m-0'>you created a new note #{activity.note_title}</p>}
+                        {activity.action == 2 && <p className='m-0'>you updated #{activity.note_title}. update hash {activity.version}</p>}
                     </div>
-                    <div className='ml-5'>
+                    <div>
                         {getTimeFrom(activity.created_at)}
                     </div>
                  </div>
@@ -90,8 +94,8 @@ class Overview extends React.Component {
                 <div className='flex flex-col'>
                     {activities}
                 </div>
-                { this.state.activities.length < this.state.totalActivities && <div className='relative quicksand'>
-                    <button onClick={() => {this.fetchActivities(this.state.activityPage + 1)}} className='bg-cloudred focus:outline-none hover:bg-reddishbrown outline-none rounded-md text-white p-3 w-full'>Load More</button>
+                { this.state.activities.length < this.state.totalActivities && <div className='relative quicksand mt-8'>
+                    <button onClick={() => {this.fetchActivities(this.state.activityPage + 1)}} className='bg-cloudred focus:outline-none hover:bg-reddishbrown outline-none rounded-md text-white p-3 w-full'>load more</button>
                     <Loader display={this.state.requestActive} />
                 </div> }
             </div>)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getNotes } from '../../services/note';
-import { getTimeFrom, getFormattedDate } from '../../services/date';
+import { getFormattedDate } from '../../services/date';
 
 class Notes extends React.Component {
 
@@ -29,14 +29,16 @@ class Notes extends React.Component {
         return notes.map(note => {
             return (
                 <div key={note._id} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-8'>
-                    <div className='mb-5' dangerouslySetInnerHTML={{ __html:note.content }} style={{ height:'30vh' }}>
+                    <div className='mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:note.content }} style={{ height:'30vh' }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
                         <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
                             {note.title}
                         </div>
-                        <div className='underline mr-8'>
-                            view
+                        <div className='flex flex-row'>
+                            <button onClick={() => {this.props.update(note)}}  className='focus:outline-none m-0 mr-3'>update</button>
+                            <button className='focus:outline-none m-0 mr-3'>download</button>
+                            <button className='focus:outline-none m-0'>delete</button>
                         </div>
                     </div>
                     <div className='quicksand mb-2'>
@@ -47,7 +49,7 @@ class Notes extends React.Component {
                     </div>
                     <div className='quicksand mb-2'>
                         last updated {getFormattedDate(note.updated_at)}
-                    </div>                   
+                    </div>              
                 </div>
             )
         })
