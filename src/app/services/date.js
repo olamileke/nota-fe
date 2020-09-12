@@ -25,9 +25,10 @@ const getFormattedDate = dt => {
     const day = days[date.getDay()];
     const dte = date.getDate();
     const month = months[date.getMonth()];
-    const hour = date.getHours();
+    let hour = date.getHours();
     let minutes = date.getMinutes();
 
+    String(hour).length == 1 ? hour = '0' + String(hour) : hour = hour;
     String(minutes).length == 1 ? minutes = '0' + String(minutes) : minutes = minutes;
     
     return `${day} ${dte} ${month}. ${hour}:${minutes}`;

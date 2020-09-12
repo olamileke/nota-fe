@@ -3,14 +3,21 @@ import Header from '../Header/header';
 import Overview from '../Overview/overview';
 import Create from '../Create/create';
 import Notes from '../Notes/notes';
+import Versions from '../Versions/versions';
 
 class AuthHome extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { tabs:{ overview:true, create:false, notes:false, versions:false, update:false }, data:{ viewedNote:null, viewedVersion:null } };
+        // viewednote refers to a note in its entirety
+        // viewednoteid is the id of the note whose versions we want to view
+
+        this.state = { tabs:{ overview:true, create:false, notes:false, versions:false, update:false },
+        data:{ viewedNote:null, viewedNoteID:null } };
+        
         this.switchTab = this.switchTab.bind(this);
         this.switchToUpdate = this.switchToUpdate.bind(this);
+        this.switchToVersions = this.switchToVersions.bind(this);
     }
 
     componentDidMount() {
@@ -20,6 +27,11 @@ class AuthHome extends React.Component {
     switchToUpdate(note) {
         this.setState({ data:{ viewedNote:note } });
         this.switchTab('update');
+    }
+
+    switchToVersions(noteID) {
+        this.setState({ data:{ viewedNoteID:noteID } });
+        this.switchTab('versions');
     }
 
     switchTab(view) {
@@ -46,11 +58,15 @@ class AuthHome extends React.Component {
         }
 
         if(this.state.tabs.create) {
-            viewedTab = <Create note={this.state.data.viewedNote}/>
+            viewedTab = <Create note={this.state.data.viewedNote} />
         }
 
         if(this.state.tabs.notes) {
-            viewedTab = <Notes update={this.switchToUpdate} />
+            viewedTab = <Notes update={this.switchToUpdate} viewVersions={this.switchToVersions} />
+        }
+        
+        if(this.state.tabs.versions) {
+            viewedTab = <Versions noteID={this.state.data.viewedNoteID} />
         }
 
         if(this.state.tabs.update) {

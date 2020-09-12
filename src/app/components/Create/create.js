@@ -16,7 +16,6 @@ class Create extends React.Component {
         this.clear = this.clear.bind(this);
         this.submit = this.submit.bind(this);
         this.update = this.update.bind(this);
-        alert('leke');
     }
 
     componentDidMount() {

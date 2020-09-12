@@ -47,7 +47,7 @@ class Overview extends React.Component {
             return <div key={note._id} className='bg-white shadow-md w-full flex flex-col mb-5 p-6'>
                 <div className='flex flex-row justify-between items-center mb-5'>
                     <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
-                        {note.title}
+                        #{note.title}
                     </div>
                     <div onClick={() => {this.props.viewNote(note)}} className='cursor-pointer quicksand underline mr-8'>
                         view

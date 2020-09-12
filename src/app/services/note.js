@@ -21,4 +21,8 @@ function updateNote(id, note) {
     return API.put(`/notes/${id}`, note);
 }
 
-export { createNote, getNotes, updateNote };
+function deleteNote(id) {
+    return API.delete(`/notes/${id}`);
+}
+
+export { createNote, getNotes, updateNote, deleteNote };
