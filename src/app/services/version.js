@@ -4,4 +4,8 @@ const getVersions = (noteID, page) => {
     return API.get(`/notes/${noteID}/versions?page=${page}`);
 }
 
-export { getVersions };
+const deleteVersion = (noteID, hash) => {
+    return API.delete(`/notes/${noteID}/versions/${hash}`);
+}
+
+export { getVersions, deleteVersion };

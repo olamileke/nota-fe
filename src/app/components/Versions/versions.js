@@ -1,6 +1,7 @@
 import React from 'react';
-import { getVersions } from '../../services/version';
+import { getVersions, deleteVersion } from '../../services/version';
 import { getFormattedDate } from '../../services/date';
+import { notifySuccess } from '../../services/notify';
 
 class Versions extends React.Component {
 
@@ -8,6 +9,7 @@ class Versions extends React.Component {
         super(props);
         this.state = { versions:[], totalVersions:0, versionPage:1 };
         this.get = this.get.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     componentDidMount() {
@@ -20,7 +22,29 @@ class Versions extends React.Component {
             const versions = response.data.data.versions;
             const totalVersions = response.data.data.totalVersions;
             this.setState({ versions:versions, totalVersions:totalVersions, versionPage:page });
-            console.log(response);
+        })
+    }
+
+    delete(hash) {
+        const proceed = window.confirm('are you sure you want to delete ?');
+
+        if(!proceed) {
+            return;
+        }
+
+        deleteVersion(this.props.noteID, hash)
+        .then(response => {
+            const versions = [...this.state.versions];
+            const idx = versions.findIndex(version => version.hash == hash);
+            versions.splice(idx, 1);
+            this.setState(state => ({
+                versions:versions,
+                totalVersions:state.totalVersions - 1
+            }));
+            notifySuccess(`${hash} deleted successfully`);
+        })
+        .catch(error => {
+            console.log(error.response);
         })
     }
 
@@ -38,7 +62,7 @@ class Versions extends React.Component {
                         <div className='flex flex-row'>
                             <button className='focus:outline-none m-0 mr-3'>revert</button>
                             <button className='focus:outline-none m-0 mr-3'>download</button>
-                            <button className='focus:outline-none m-0'>delete</button>
+                            {this.state.versions.length > 1 && <button onClick={() => {this.delete(version.hash)}} className='focus:outline-none m-0'>delete</button>}
                         </div>
                     </div>
                     <div className='quicksand mb-2'>
