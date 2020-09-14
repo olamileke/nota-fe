@@ -1,5 +1,5 @@
 import React from 'react';
-import { getVersions, deleteVersion } from '../../services/version';
+import { getVersions, deleteVersion, revertToVersion } from '../../services/version';
 import { getFormattedDate } from '../../services/date';
 import { notifySuccess } from '../../services/notify';
 
@@ -9,6 +9,7 @@ class Versions extends React.Component {
         super(props);
         this.state = { versions:[], totalVersions:0, versionPage:1 };
         this.get = this.get.bind(this);
+        this.revert = this.revert.bind(this);
         this.delete = this.delete.bind(this);
     }
 
@@ -25,6 +26,30 @@ class Versions extends React.Component {
         })
     }
 
+    revert(hash) {
+        const idx = this.state.versions.findIndex(version => version.hash == hash);
+        const versionsAhead = ((this.state.versionPage - 1) * 6) + idx;
+        if(versionsAhead == 0) {
+            window.alert('already current version!');
+            return;
+        }
+
+        const proceed = window.confirm(`this would delete the ${versionsAhead} versions ahead. proceed ?`);
+         
+        if(!proceed) {
+            return;
+        }
+
+        revertToVersion(this.props.noteID, hash.replace(/#/, ''))
+        .then(response => {
+            this.get(1);
+            notifySuccess(`#${this.state.versions[0].note} reverted to version ${hash}`);
+        })
+        .catch(error => {
+            console.log(error.response);
+        })
+    }
+
     delete(hash) {
         const proceed = window.confirm('are you sure you want to delete ?');
 
@@ -32,7 +57,7 @@ class Versions extends React.Component {
             return;
         }
 
-        deleteVersion(this.props.noteID, hash)
+        deleteVersion(this.props.noteID, hash.replace(/#/, ''))
         .then(response => {
             const versions = [...this.state.versions];
             const idx = versions.findIndex(version => version.hash == hash);
@@ -60,7 +85,7 @@ class Versions extends React.Component {
                             {version.hash.slice(0,4)}
                         </div>
                         <div className='flex flex-row'>
-                            <button className='focus:outline-none m-0 mr-3'>revert</button>
+                            <button onClick={() => {this.revert(version.hash)}} className='focus:outline-none m-0 mr-3'>revert</button>
                             <button className='focus:outline-none m-0 mr-3'>download</button>
                             {this.state.versions.length > 1 && <button onClick={() => {this.delete(version.hash)}} className='focus:outline-none m-0'>delete</button>}
                         </div>

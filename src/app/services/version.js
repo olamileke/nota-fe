@@ -8,4 +8,8 @@ const deleteVersion = (noteID, hash) => {
     return API.delete(`/notes/${noteID}/versions/${hash}`);
 }
 
-export { getVersions, deleteVersion };
+const revertToVersion = (noteID, hash) => {
+    return API.patch(`/notes/${noteID}/versions/${hash}`);
+}
+
+export { getVersions, deleteVersion, revertToVersion };
