@@ -17,6 +17,11 @@ input:focus + .fa
     color:rgba(140, 47, 57, 0.6);
 }
 
+.form__border
+{
+    border-radius:13px;
+}
+
 .z--9999
 {
     z-index:-9999;
@@ -78,5 +83,13 @@ input:focus + .fa
     to
     {
         transform:rotate(360deg);
+    }
+}
+
+@media(max-width:576px)
+{
+    .form__border
+    {
+        border-radius:13px 13px 0 0;
     }
 }

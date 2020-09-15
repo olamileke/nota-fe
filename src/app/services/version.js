@@ -7,7 +7,6 @@ const getVersions = (noteID, page) => {
 const deleteVersion = (noteID, hash) => {
     return API.delete(`/notes/${noteID}/versions/${hash}`);
 }
-
 const revertToVersion = (noteID, hash) => {
     return API.patch(`/notes/${noteID}/versions/${hash}`);
 }

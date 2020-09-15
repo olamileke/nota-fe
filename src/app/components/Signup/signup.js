@@ -89,9 +89,9 @@ class Signup extends React.Component {
     render() {
     
         return (
-            <div className={this.props.display ? 'transition-all duration-300 ease-in z-50 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center' :
-            'transition-all duration-300 ease-in z--9999 opacity-0 fixed top-0 left-0 w-screen h-screen flex flex-row items-center justify-center'}>
-                <div className='relative flex flex-col bg-white w-2/6 quicksand pt-5 pb-8 quicksand' style={{ borderRadius:"13px", top:"0px" }}>
+            <div onClick={this.props.close} className={this.props.display ? 'transition-all duration-300 ease-in z-10 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-end sm:items-center justify-center' :
+            'transition-all duration-300 ease-in z--9999 opacity-0 fixed top-0 left-0 w-screen h-screen flex flex-row items-end sm:items-center justify-center'}>
+                <div onClick={(e) => {e.stopPropagation()}} className='relative flex flex-col z-20 bg-white w-full sm:w-5/6 md:w-4/6 lg:w-2/6 quicksand pt-5 pb-8 quicksand form__border' style={{ top:"0px" }}>
                     <p className='text-center m-0 mb-2 text-2xl'>Hello</p>
                     <p className='text-center m-0 mb-5 text-base text-gray-700'>create your new nota account.</p>
 
@@ -117,8 +117,8 @@ class Signup extends React.Component {
                         </div>
                     </form>
                     <hr/>
-                    <div className='text-center pt-8 text-gray-700'>
-                        already have an account ? <a className='m-0 cursor-pointer underline' onClick={this.props.login}>login</a>
+                    <div className='text-center pt-8 text-gray-900 sm:text-gray-700'>
+                        already have an account ? <a className='m-0 cursor-pointer lg:underline' onClick={this.props.login}>login</a>
                     </div>
                     <i class='absolute top-0 left-0 mt-5 ml-5 fa fa-times text-2xl cursor-pointer' onClick={this.props.close}></i>
                 </div>
