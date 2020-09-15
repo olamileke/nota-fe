@@ -1,0 +1,46 @@
+ 
+.landing__page
+{
+    height:90vh;
+}
+
+.versioning
+{
+    height:70vh;
+}
+
+.features__image
+{
+    height:65vh;
+}
+
+@media(max-width:1025px) 
+{
+    .landing__page
+    {
+        height:60vh;
+    }
+
+    .versioning
+    {
+        height:unset;
+    }
+
+    .features__image
+    {
+        height:30vh;
+    }
+}
+
+@media(max-width:576px)
+{
+    .landing__page
+    {
+        height:70vh;
+    }
+
+    .features__image
+    {
+        height:50vh;
+    }
+}
