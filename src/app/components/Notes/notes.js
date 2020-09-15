@@ -13,6 +13,7 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         this.get(1);
     }
 
@@ -51,12 +52,12 @@ class Notes extends React.Component {
         const notes = [...this.state.notes];
         return notes.map(note => {
             return (
-                <div key={note._id} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-8'>
-                    <div className='mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:note.content }} style={{ height:'30vh' }}>
+                <div key={note._id} className='quicksand col-span-12 lg:col-span-6 flex flex-col mb-5 bg-white shadow-lg p-5 bsm:p-8'>
+                    <div className='note mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:note.content }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
                         <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
-                            {note.title}
+                            #{note.title}
                         </div>
                         <div className='flex flex-row'>
                             <button onClick={() => {this.props.update(note)}}  className='cursor-pointer focus:outline-none m-0 mr-3'>update</button>

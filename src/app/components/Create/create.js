@@ -19,6 +19,7 @@ class Create extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         if(this.props.note) {
             this.setState({ content:this.props.note.content });
         }
@@ -106,10 +107,10 @@ class Create extends React.Component {
 
         return (
             <div className='grid grid-cols-12'> 
-                <div className='relative bg-white shadow-lg col-span-6'>
+                <div className='relative bg-white shadow-lg col-span-12 lg:col-span-6 mb-3 lg:mb-5'>
                     <ReactQuill value={this.state.content} onChange={this.change} />
                 </div>
-                <div className='quicksand col-start-8 col-span-4 bg-white shadow-lg flex flex-col p-8' style={{ height:"fit-content" }}>
+                <div className='quicksand col-span-12 lg:col-start-8 lg:col-span-4 bg-white shadow-lg flex flex-col p-8' style={{ height:"fit-content" }}>
                     {this.state.title != '' && <p className={titleClass}>#{this.state.title}</p>}
                     {this.state.title == '' && <p className={titleClass}>#new</p>}
                     {this.props.note && <p className='m-0 mb-5'>created {getFormattedDate(this.props.note.created_at)}</p>}

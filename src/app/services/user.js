@@ -1,4 +1,5 @@
 import API from './api';
+import { notifySuccess } from './notify';
 
 async function createUser(user) {
     return API.post('/users', user);
@@ -18,4 +19,9 @@ const isAuthenticated = () => {
     return false;
 }
 
-export { createUser, authenticate, isAuthenticated };
+const logout = () => {
+    localStorage.clear();
+    notifySuccess('logged out successfully');
+}
+
+export { createUser, authenticate, isAuthenticated, logout };

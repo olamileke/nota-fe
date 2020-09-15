@@ -78,7 +78,7 @@ class AuthHome extends React.Component {
                 <div>
                     <Header view={this.switchTab} />
                 </div>
-                <div className='relative mx-24' style={{ top:'-5rem' }}>
+                <div className='relative mx-8 sm:mx-12 lg:mx-24' style={{ top:'-5rem' }}>
                     { viewedTab }
                 </div>
             </div>

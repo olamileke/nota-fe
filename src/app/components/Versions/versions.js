@@ -14,6 +14,7 @@ class Versions extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         this.get(1);
     }
 
@@ -77,8 +78,8 @@ class Versions extends React.Component {
         const versions = [...this.state.versions];
         return versions.map((version, index) => {
             return (
-                <div key={index} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-8'>
-                    <div className='mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:version.content }} style={{ height:'30vh' }}>
+                <div key={index} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-5 bsm:p-8'>
+                    <div className='note mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:version.content }} style={{ height:'30vh' }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
                         <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
@@ -123,7 +124,7 @@ class Versions extends React.Component {
             });
 
             return (
-                <div className='flex flex-row'>
+                <div className='flex flex-row mt-10'>
                     {pages}
                 </div>
             )
@@ -141,7 +142,7 @@ class Versions extends React.Component {
                 <div className='grid grid-cols-12 col-gap-5'>
                     {versions}
                 </div>
-                <div className='mt-10'>
+                <div>
                     {pages}
                 </div>
             </div>

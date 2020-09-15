@@ -73,6 +73,27 @@ input:focus + .fa
     -moz-user-focus: true;
 }
 
+.note
+{
+    height:30vh;
+}
+
+.note::-webkit-scrollbar
+{
+	width:4px;
+	background:rgba(0,0,0,0.05);
+}
+
+.note::-webkit-scrollbar-thumb
+{
+	background:rgba(0,0,0,0.25);
+}
+
+.note::-webkit-scrollbar-track
+{
+	background:rgba(0,0,0,0.01);
+}
+
 @keyframes spin
 {
     from

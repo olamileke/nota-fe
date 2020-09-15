@@ -14,13 +14,17 @@ class Overview extends React.Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         this.fetchNotes();
         this.fetchActivities(1);
         this.user = JSON.parse(localStorage.getItem('nota_user'));
     }
 
     fetchNotes() {
-        getNotes(3, null)
+        let numNotes;
+        window.screen.width <= 768 ? numNotes = 4 : numNotes = 3;
+
+        getNotes(numNotes, null)
         .then(response => {
             this.setState({ notes:response.data.data.notes });
         })
@@ -89,7 +93,7 @@ class Overview extends React.Component {
         })
 
         if(activities.length > 0) {
-        return (<div className='flex flex-col p-8 quicksand'>
+        return (<div className='flex flex-col p-6 bsm:p-8 quicksand'>
                 <p className='m-0 mb-8 p-2 bg-cloudred rounded text-white' style={{ width:'fit-content' }}>recently</p>
                 <div className='flex flex-col'>
                     {activities}
@@ -110,10 +114,10 @@ class Overview extends React.Component {
 
         return (
             <div className='grid grid-cols-12'>
-                <div className='col-span-5'>
+                <div className='col-span-12 mb-3 md:mb-0 md:col-span-5'>
                     {notes}
                 </div>
-                <div className='col-start-7 col-span-5 bg-white shadow-md' style={{ height:"fit-content" }}>
+                <div className='col-span-12 md:col-start-7 col-end-13 bg-white shadow-md' style={{ height:"fit-content" }}>
                     {activities}
                 </div>
             </div>
