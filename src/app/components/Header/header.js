@@ -2,14 +2,20 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { logout } from '../../services/user';
+import { updateAvatar } from '../../services/user';
+import { notifySuccess, notifyError } from '../../services/notify';
 
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.user = JSON.parse(localStorage.getItem('nota_user'));
-        this.state = { displayOptions:false };
+        const user = JSON.parse(localStorage.getItem('nota_user'));
+        this.state = { user:user, displayOptions:false, avatarToUpload:null };
         this.toggleOptions = this.toggleOptions.bind(this);
+        this.clickFileInput = this.clickFileInput.bind(this);
+        this.previewAvatar = this.previewAvatar.bind(this);
+        this.validateAvatar = this.validateAvatar.bind(this);
+        this.uploadAvatar = this.uploadAvatar.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
@@ -17,6 +23,60 @@ class Header extends React.Component {
         this.setState(state => ({
             displayOptions:!state.displayOptions
         }));
+    }
+
+    clickFileInput() {
+        document.getElementById('file__input').click();
+    }
+
+    previewAvatar(event) {
+        const file = event.target.files[0];
+
+        if(this.validateAvatar(file)) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                this.setState({ avatarToUpload:file });
+                document.getElementById('user__avatar').setAttribute('src', e.target.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    uploadAvatar() {
+        const formData = new FormData();
+        formData.append('image', this.state.avatarToUpload);
+
+        updateAvatar(formData)
+        .then(response => {
+            const user = response.data.data.user;
+            localStorage.setItem('nota_user', JSON.stringify(user));
+            this.setState({ displayOptions:false, user:user, avatarToUpload:null });
+            this.props.setAvatar(user.avatar);
+            notifySuccess('avatar changed successfully!');
+        })
+        .catch(error => {
+            console.log(error.response);
+        })
+    }
+
+    validateAvatar(file) {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        const type = file.type.toLowerCase();
+
+        if(!allowedTypes.includes(type)) {
+            notifyError('file format not supported!');
+            document.getElementById('user__avatar').setAttribute('src', this.state.user.avatar);
+            return false;
+        }
+
+        if(file.size > 2500000) {
+            notifyError('image too large!');
+            document.getElementById('user__avatar').setAttribute('src', this.state.user.avatar);
+            return false;
+        }
+
+        return true;
     }
 
     signOut() {
@@ -41,13 +101,25 @@ class Header extends React.Component {
                                 enable: true,
                                 value_area: 800
                                 }
+                            },
+                            opacity:{
+                                value:0
+                            },
+                            size:{
+                                value:1
+                            },
+                            move:{
+                                bounce:true
                             }
                     }}} />
                 </div>
                 <div className='flex flex-row justify-between z-10'>
                     <div className='flex flex-row items-center mb-12'>
-                        <img src={this.user.avatar} className='z-10 w-12 h-12 rounded-full object-cover mr-3' />
-                        <p className='m-0'>{this.user.name}</p>
+                        <div className='relative w-12 h-12 mr-2'>
+                            <img src={this.state.user.avatar} className='w-full h-full rounded-full object-cover' id='user__avatar' />
+                            <div className='absolute top-0 left-0 w-full z-10 h-full rounded-full' style={{ background:"rgba(0,0,0,0.1)" }}></div>
+                        </div>
+                        <p className='m-0'>{this.state.user.name}</p>
                     </div>
                     <div className='relative'>
                         <div onClick={this.toggleOptions} className='cursor-pointer border-2 border-white flex flex-row justify-center items-center rounded-full w-12 h-12'>
@@ -55,15 +127,19 @@ class Header extends React.Component {
                         </div>
                         <div className={optionsClasses} style={{ top:"60%", borderRadius:"3px" }}>
                             <button className='outline-none py-4 hover:bg-gray-200 focus:outline-none font-semibold text-sm text-center w-full'>
-                                { this.user.email }
+                                { this.state.user.email }
                             </button>
-                            <button className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full'>
+                            {!this.state.avatarToUpload && <button onClick={this.clickFileInput} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full'>
                                 change avatar
-                            </button>
+                            </button>}
+                            {this.state.avatarToUpload && <button onClick={this.uploadAvatar} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full'>
+                                upload avatar
+                            </button>}
                             <button onClick={this.signOut} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-center text-sm font-semibold text-black w-full'>
                                 sign out
                             </button>
                         </div>
+                        <input type='file' onChange={this.previewAvatar} className='hidden' id='file__input' />
                     </div>
                 </div>
                 <div className='flex flex-row items-center mb-20'>

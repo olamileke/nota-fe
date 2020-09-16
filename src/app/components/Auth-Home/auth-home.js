@@ -9,15 +9,18 @@ class AuthHome extends React.Component {
 
     constructor(props) {
         super(props);
+        const user = JSON.parse(localStorage.getItem('nota_user'));
         // viewednote refers to a note in its entirety
-        // viewednoteid is the id of the note whose versions we want to view
+        // viewednoteid is the id of the note whose versions we want to view. injected into the
+        // versions component
 
         this.state = { tabs:{ overview:true, create:false, notes:false, versions:false, update:false },
-        data:{ viewedNote:null, viewedNoteID:null } };
+        data:{ viewedNote:null, viewedNoteID:null }, avatar:user.avatar };
         
         this.switchTab = this.switchTab.bind(this);
         this.switchToUpdate = this.switchToUpdate.bind(this);
         this.switchToVersions = this.switchToVersions.bind(this);
+        this.setAvatar = this.setAvatar.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +35,10 @@ class AuthHome extends React.Component {
     switchToVersions(noteID) {
         this.setState({ data:{ viewedNoteID:noteID } });
         this.switchTab('versions');
+    }
+
+    setAvatar(avatar) {
+        this.setState({ avatar:avatar })
     }
 
     switchTab(view) {
@@ -54,7 +61,7 @@ class AuthHome extends React.Component {
         let viewedTab;
 
         if(this.state.tabs.overview) {
-            viewedTab = <Overview viewNote={this.switchToUpdate} />
+            viewedTab = <Overview avatar={this.state.avatar} viewNote={this.switchToUpdate} />
         }
 
         if(this.state.tabs.create) {
@@ -76,7 +83,7 @@ class AuthHome extends React.Component {
         return (
             <div className='w-screen min-h-screen bg-offwhite'>
                 <div>
-                    <Header view={this.switchTab} />
+                    <Header view={this.switchTab} setAvatar={this.setAvatar} />
                 </div>
                 <div className='relative mx-8 sm:mx-12 lg:mx-24' style={{ top:'-5rem' }}>
                     { viewedTab }

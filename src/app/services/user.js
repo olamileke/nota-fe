@@ -1,12 +1,19 @@
-import API from './api';
+import createAxiosObject from './api';
 import { notifySuccess } from './notify';
 
-async function createUser(user) {
-    return API.post('/users', user);
+const createUser = user => {
+    const API = createAxiosObject();
+    return API.post('users', user);
 }
 
-async function authenticate(user) {
-    return API.post('/authenticate', user);
+const authenticate = user => {
+    const API = createAxiosObject();
+    return API.post('authenticate', user);
+}
+
+const updateAvatar = formData => {
+    const API = createAxiosObject(true);
+    return API.put('users', formData);
 }
 
 const isAuthenticated = () => {
@@ -24,4 +31,4 @@ const logout = () => {
     notifySuccess('logged out successfully');
 }
 
-export { createUser, authenticate, isAuthenticated, logout };
+export { createUser, authenticate, updateAvatar, isAuthenticated, logout };

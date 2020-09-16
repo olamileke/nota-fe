@@ -51,7 +51,7 @@ class Overview extends React.Component {
             return <div key={note._id} className='bg-white shadow-md w-full flex flex-col mb-5 p-6'>
                 <div className='flex flex-row justify-between items-center mb-5'>
                     <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
-                        #{note.title}
+                        {note.title}
                     </div>
                     <div onClick={() => {this.props.viewNote(note)}} className='cursor-pointer quicksand underline mr-8'>
                         view
@@ -78,12 +78,12 @@ class Overview extends React.Component {
             return (
                 <div key={activity._id} className={classes}>
                     <div className='relative w-10 h-10 rounded-full mr-5'>
-                        <img src="https://thetrimbucket.s3.us-east-2.amazonaws.com/users/1598570148.3808098leke.JPG" className='w-full h-full rounded-full object-cover' />
+                        <img src={this.props.avatar} className='w-full h-full rounded-full object-cover' />
                         <div className='absolute top-0 left-0 w-full h-full rounded-full' style={{ background:"rgba(0,0,0,0.0.07)" }}></div>
                     </div>
                     <div className='mr-auto'>
-                        {activity.action == 1 && <p className='m-0'>you created a new note #{activity.note_title}</p>}
-                        {activity.action == 2 && <p className='m-0'>you updated #{activity.note_title}. update hash {activity.version}</p>}
+                        {activity.action == 1 && <p className='m-0'>you created a new note {activity.note_title}</p>}
+                        {activity.action == 2 && <p className='m-0'>you updated {activity.note_title}. update hash {activity.version}</p>}
                     </div>
                     <div>
                         {getTimeFrom(activity.created_at)}
@@ -120,6 +120,7 @@ class Overview extends React.Component {
                 <div className='col-span-12 md:col-start-7 col-end-13 bg-white shadow-md' style={{ height:"fit-content" }}>
                     {activities}
                 </div>
+
             </div>
         )
     }

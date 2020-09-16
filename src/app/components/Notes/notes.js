@@ -57,7 +57,7 @@ class Notes extends React.Component {
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
                         <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
-                            #{note.title}
+                            {note.title}
                         </div>
                         <div className='flex flex-row'>
                             <button onClick={() => {this.props.update(note)}}  className='cursor-pointer focus:outline-none m-0 mr-3'>update</button>

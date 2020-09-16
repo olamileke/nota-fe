@@ -95,7 +95,7 @@ class Versions extends React.Component {
                         {version.hash}
                     </div>
                     <div className='quicksand mb-2'>
-                        note - #{version.note}
+                        {version.note}
                     </div>
                     <div className='quicksand mb-2'>
                         created {getFormattedDate(version.created_at)}
