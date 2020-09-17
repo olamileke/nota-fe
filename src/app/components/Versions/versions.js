@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { getVersions, deleteVersion, revertToVersion } from '../../services/version';
 import { getFormattedDate } from '../../services/date';
-import { notifySuccess } from '../../services/notify';
+import { notifySuccess, notifyError } from '../../services/notify';
 
 class Versions extends React.Component {
 
@@ -18,16 +19,30 @@ class Versions extends React.Component {
         this.get(1);
     }
 
-    get(page) {
-        getVersions(this.props.noteID, page)
-        .then(response => {
+    async get(page) {
+
+        this.props.toggleLoading();
+
+        try {
+            const response = await getVersions(this.props.noteID, page);
             const versions = response.data.data.versions;
             const totalVersions = response.data.data.totalVersions;
             this.setState({ versions:versions, totalVersions:totalVersions, versionPage:page });
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
-    revert(hash) {
+    async revert(hash) {
+
         const idx = this.state.versions.findIndex(version => version.hash == hash);
         const versionsAhead = ((this.state.versionPage - 1) * 6) + idx;
         if(versionsAhead == 0) {
@@ -41,25 +56,36 @@ class Versions extends React.Component {
             return;
         }
 
-        revertToVersion(this.props.noteID, hash.replace(/#/, ''))
-        .then(response => {
+        this.props.toggleLoading();
+
+        try {
+            await revertToVersion(this.props.noteID, hash.replace(/#/, ''));
             this.get(1);
             notifySuccess(`#${this.state.versions[0].note} reverted to version ${hash}`);
-        })
-        .catch(error => {
-            console.log(error.response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
-    delete(hash) {
+    async delete(hash) {
         const proceed = window.confirm('are you sure you want to delete ?');
 
         if(!proceed) {
             return;
         }
 
-        deleteVersion(this.props.noteID, hash.replace(/#/, ''))
-        .then(response => {
+        this.props.toggleLoading();
+
+        try {
+            await deleteVersion(this.props.noteID, hash.replace(/#/, ''));
             const versions = [...this.state.versions];
             const idx = versions.findIndex(version => version.hash == hash);
             versions.splice(idx, 1);
@@ -68,10 +94,17 @@ class Versions extends React.Component {
                 totalVersions:state.totalVersions - 1
             }));
             notifySuccess(`${hash} deleted successfully`);
-        })
-        .catch(error => {
-            console.log(error.response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
     renderVersions() {
@@ -124,7 +157,7 @@ class Versions extends React.Component {
             });
 
             return (
-                <div className='flex flex-row mt-10'>
+                <div className='flex flex-row mt-6'>
                     {pages}
                 </div>
             )
@@ -139,7 +172,7 @@ class Versions extends React.Component {
 
         return (
             <div>
-                <div className='grid grid-cols-12 col-gap-5'>
+                <div className='grid grid-cols-12 pb-3 col-gap-5'>
                     {versions}
                 </div>
                 <div>
@@ -150,4 +183,4 @@ class Versions extends React.Component {
     }
 }
 
-export default Versions;
+export default withRouter(Versions);

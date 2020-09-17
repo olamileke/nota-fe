@@ -10,13 +10,19 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         const user = JSON.parse(localStorage.getItem('nota_user'));
-        this.state = { user:user, displayOptions:false, avatarToUpload:null };
+        this.state = { user:user, displayOptions:false, avatarToUpload:null, activeView:'overview' };
+        this.toggleView = this.toggleView.bind(this);
         this.toggleOptions = this.toggleOptions.bind(this);
         this.clickFileInput = this.clickFileInput.bind(this);
         this.previewAvatar = this.previewAvatar.bind(this);
         this.validateAvatar = this.validateAvatar.bind(this);
         this.uploadAvatar = this.uploadAvatar.bind(this);
         this.signOut = this.signOut.bind(this);
+    }
+
+    toggleView(view) {
+        this.props.view(view);
+        this.setState({ activeView:view });
     }
 
     toggleOptions() {
@@ -43,21 +49,31 @@ class Header extends React.Component {
         }
     }
 
-    uploadAvatar() {
+   async uploadAvatar() {
+       
         const formData = new FormData();
         formData.append('image', this.state.avatarToUpload);
 
-        updateAvatar(formData)
-        .then(response => {
+        this.props.toggleLoading();
+
+        try {
+            const response = await updateAvatar(formData);
             const user = response.data.data.user;
             localStorage.setItem('nota_user', JSON.stringify(user));
             this.setState({ displayOptions:false, user:user, avatarToUpload:null });
             this.props.setAvatar(user.avatar);
             notifySuccess('avatar changed successfully!');
-        })
-        .catch(error => {
-            console.log(error.response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
     validateAvatar(file) {
@@ -90,13 +106,15 @@ class Header extends React.Component {
             optionsClasses = optionsClasses.replace(/mt-8 z--9999 opacity-0/, 'mt-2 z-10 opacity-100')
         };
 
+        let viewClasses = 'transition-all duration-300 ease-in px-3 py-5 m-0 focus:outline-none mr-2 cursor-pointer z-10';
+
         return (
             <div className='relative w-screen py-12 px-8 sm:px-12 lg:px-24 text-white quicksand bg-reddishbrown'>
                 <div className='absolute top-0 left-0 w-full h-full'>
                     <Particles height='100%' params={{
                         particles: {
                             number: {
-                                value: 50,
+                                value: 65,
                                 density: {
                                 enable: true,
                                 value_area: 800
@@ -114,7 +132,7 @@ class Header extends React.Component {
                     }}} />
                 </div>
                 <div className='flex flex-row justify-between z-10'>
-                    <div className='flex flex-row items-center mb-12'>
+                    <div className='flex flex-row items-center mb-8'>
                         <div className='relative w-12 h-12 mr-2'>
                             <img src={this.state.user.avatar} className='w-full h-full rounded-full object-cover' id='user__avatar' />
                             <div className='absolute top-0 left-0 w-full z-10 h-full rounded-full' style={{ background:"rgba(0,0,0,0.1)" }}></div>
@@ -143,9 +161,9 @@ class Header extends React.Component {
                     </div>
                 </div>
                 <div className='flex flex-row items-center mb-20'>
-                    <button onClick={() => { this.props.view('overview') }} className='transition-colors duration-300 ease-in m-0 focus:outline-none mr-5 text-white cursor-pointer z-10'>overview</button>
-                    <button onClick={() => { this.props.view('create') }} className='transition-colors duration-300 ease-in m-0 focus:outline-none mr-5 cursor-pointer z-10'>create</button>
-                    <button onClick={() => { this.props.view('notes') }} className='transition-colors duration-300 ease-in m-0 focus:outline-none mr-5 cursor-pointer z-10'>notes</button>
+                    <button onClick={() => { this.toggleView('overview') }} className={this.state.activeView == 'overview' ? viewClasses.replace(/mr-2/, 'shadow-md mr-5') : viewClasses}>overview</button>
+                    <button onClick={() => { this.toggleView('create') }} className={this.state.activeView == 'create' ? viewClasses.replace(/mr-2/, 'shadow-md mr-5') : viewClasses}>create</button>
+                    <button onClick={() => { this.toggleView('notes') }} className={this.state.activeView == 'notes' ? viewClasses.replace(/mr-2/, 'shadow-md mr-5') : viewClasses}>notes</button>
                 </div>
             </div>
         )

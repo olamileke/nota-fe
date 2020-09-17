@@ -57,8 +57,6 @@ class Signup extends React.Component {
                 notifyError('user with email exists!');
                 return;
             }
-
-            notifyError('an error occured');
         })
     }
 

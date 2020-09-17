@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { getNotes, deleteNote } from '../../services/note';
 import { getFormattedDate } from '../../services/date';
-import { notifySuccess } from '../../services/notify';
+import { notifySuccess, notifyError } from '../../services/notify';
 
 class Notes extends React.Component {
 
@@ -17,25 +18,39 @@ class Notes extends React.Component {
         this.get(1);
     }
 
-    get(page) {
-        getNotes(null, page)
-        .then(response => {
+    async get(page) {
+
+        this.props.toggleLoading();
+
+        try {
+            const response = await getNotes(null, page);
             const notes = response.data.data.notes;
             const totalNotes = response.data.data.totalNotes;
             this.setState({ notes:notes, totalNotes:totalNotes, notePage:page });
-            console.log(response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
-    delete(id) {
+    async delete(id) {
         const proceed = window.confirm('are you sure you want to delete ?');
 
         if(!proceed) {
             return;
         }
 
-        deleteNote(id)
-        .then(response => {
+        this.props.toggleLoading();
+
+        try {
+            await deleteNote(id);
             const notes = [...this.state.notes];
             const idx = notes.findIndex(note => note._id.toString() == id.toString());
             notes.splice(idx, 1);
@@ -44,8 +59,17 @@ class Notes extends React.Component {
                 totalNotes:state.totalNotes - 1
             }));
             notifySuccess('note deleted successfully');
-            console.log(response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading();
+        }
     }
 
     renderNotes() {
@@ -98,7 +122,7 @@ class Notes extends React.Component {
             });
 
             return (
-                <div className='flex flex-row'>
+                <div className='mt-6 flex flex-row'>
                     {pages}
                 </div>
             )
@@ -113,10 +137,10 @@ class Notes extends React.Component {
 
         return (
             <div>
-                <div className='grid grid-cols-12 col-gap-5'>
+                <div className='grid grid-cols-12 pb-3 col-gap-5'>
                     {notes}
                 </div>
-                <div className='mt-10'>
+                <div>
                     {pages}
                 </div>
             </div>
@@ -124,4 +148,4 @@ class Notes extends React.Component {
     }
 }
 
-export default Notes;
+export default withRouter(Notes);

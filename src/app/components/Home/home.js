@@ -12,6 +12,10 @@ class Home extends React.Component {
         this.toggleLogin = this.toggleLogin.bind(this);
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     toggleSignup() {
      
         this.setState(state => ({

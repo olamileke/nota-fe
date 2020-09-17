@@ -1,8 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Loader from '../Loader/loader';
 import { getNotes } from '../../services/note';
 import { getActivities } from '../../services/activity';
 import { getTimeFrom } from '../../services/date';
+import { notifyError } from '../../services/notify';
 
 class Overview extends React.Component {
 
@@ -20,28 +22,47 @@ class Overview extends React.Component {
         this.user = JSON.parse(localStorage.getItem('nota_user'));
     }
 
-    fetchNotes() {
+    async fetchNotes() {
         let numNotes;
         window.screen.width <= 768 ? numNotes = 4 : numNotes = 3;
 
-        getNotes(numNotes, null)
-        .then(response => {
+        this.props.toggleLoading();
+
+        try {
+            const response = await getNotes(numNotes, null);
             this.setState({ notes:response.data.data.notes });
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
     }
 
-    fetchActivities(page) {
+    async fetchActivities(page) {
+
         this.setState({ requestActive:true });
-        getActivities(page)
-        .then(response => {
+
+        try {
+            const response = await getActivities(page);
             let activities = [...this.state.activities];
             activities = activities.concat(response.data.data.activities);
             const totalActivities = response.data.data.totalActivities;
             this.setState({ activities:activities, activityPage:page, totalActivities:totalActivities, requestActive:false });
-        })
-        .catch(error => {
-            console.log(error.response);
-        })
+        }
+        catch(error) {
+            if(error.response.status == 401 && page > 1) {
+                this.props.history.push('/');
+                localStorage.clear();
+                notifyError('you are not logged in');
+            }
+        }
+        finally {
+            this.props.toggleLoading(false);
+            this.setState({ requestActive:false });
+        }
     }
 
     renderNotes() {
@@ -113,7 +134,7 @@ class Overview extends React.Component {
         const activities = this.renderActivities();
 
         return (
-            <div className='grid grid-cols-12'>
+            <div className='grid grid-cols-12 pb-6'>
                 <div className='col-span-12 mb-3 md:mb-0 md:col-span-5'>
                     {notes}
                 </div>
@@ -126,4 +147,4 @@ class Overview extends React.Component {
     }
 }
 
-export default Overview;
+export default withRouter(Overview);

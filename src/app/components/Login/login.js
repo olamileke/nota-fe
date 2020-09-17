@@ -34,7 +34,6 @@ class Login extends React.Component {
 
         authenticate(user)
         .then(response => {
-            console.log(response);
             const user = response.data.data.user;
             const token = response.data.data.token;
 
@@ -45,14 +44,11 @@ class Login extends React.Component {
         })
         .catch(error => {
             this.setState({ requestActive:false });
-            console.log(error.response);
             
             if(error.response.status == 404) {
                 notifyError('Incorrect username or password');
                 return;
             }
-
-            notifyError('An error occured');
         })
     }
 

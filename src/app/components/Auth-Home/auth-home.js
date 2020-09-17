@@ -4,22 +4,25 @@ import Overview from '../Overview/overview';
 import Create from '../Create/create';
 import Notes from '../Notes/notes';
 import Versions from '../Versions/versions';
+import AltLoader from '../Alt-Loader/alt-loader';
 
 class AuthHome extends React.Component {
 
     constructor(props) {
         super(props);
         const user = JSON.parse(localStorage.getItem('nota_user'));
+        
         // viewednote refers to a note in its entirety
         // viewednoteid is the id of the note whose versions we want to view. injected into the
         // versions component
 
         this.state = { tabs:{ overview:true, create:false, notes:false, versions:false, update:false },
-        data:{ viewedNote:null, viewedNoteID:null }, avatar:user.avatar };
+        data:{ viewedNote:null, viewedNoteID:null }, isLoading:false, avatar:user.avatar };
         
         this.switchTab = this.switchTab.bind(this);
         this.switchToUpdate = this.switchToUpdate.bind(this);
         this.switchToVersions = this.switchToVersions.bind(this);
+        this.toggleLoading = this.toggleLoading.bind(this);
         this.setAvatar = this.setAvatar.bind(this);
     }
 
@@ -35,6 +38,18 @@ class AuthHome extends React.Component {
     switchToVersions(noteID) {
         this.setState({ data:{ viewedNoteID:noteID } });
         this.switchTab('versions');
+    }
+
+    toggleLoading(state = null) {
+
+        if(state == true || state == false) {
+            this.setState({ isLoading:state });
+            return;
+        }
+
+        this.setState(state => ({
+            isLoading:!state.isLoading
+        }))
     }
 
     setAvatar(avatar) {
@@ -61,7 +76,7 @@ class AuthHome extends React.Component {
         let viewedTab;
 
         if(this.state.tabs.overview) {
-            viewedTab = <Overview avatar={this.state.avatar} viewNote={this.switchToUpdate} />
+            viewedTab = <Overview toggleLoading={this.toggleLoading} avatar={this.state.avatar} viewNote={this.switchToUpdate} />
         }
 
         if(this.state.tabs.create) {
@@ -69,11 +84,11 @@ class AuthHome extends React.Component {
         }
 
         if(this.state.tabs.notes) {
-            viewedTab = <Notes update={this.switchToUpdate} viewVersions={this.switchToVersions} />
+            viewedTab = <Notes toggleLoading={this.toggleLoading} update={this.switchToUpdate} viewVersions={this.switchToVersions} />
         }
         
         if(this.state.tabs.versions) {
-            viewedTab = <Versions noteID={this.state.data.viewedNoteID} />
+            viewedTab = <Versions toggleLoading={this.toggleLoading} noteID={this.state.data.viewedNoteID} />
         }
 
         if(this.state.tabs.update) {
@@ -83,11 +98,12 @@ class AuthHome extends React.Component {
         return (
             <div className='w-screen min-h-screen bg-offwhite'>
                 <div>
-                    <Header view={this.switchTab} setAvatar={this.setAvatar} />
+                    <Header view={this.switchTab} toggleLoading={this.toggleLoading} setAvatar={this.setAvatar} />
                 </div>
-                <div className='relative mx-8 sm:mx-12 lg:mx-24' style={{ top:'-5rem' }}>
+                <div className='relative mx-8 sm:mx-12 lg:mx-24' style={{ top:'-5rem', marginBottom:'-5rem' }}>
                     { viewedTab }
                 </div>
+                <AltLoader display={this.state.isLoading} />
             </div>
         )
     }
