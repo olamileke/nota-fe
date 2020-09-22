@@ -103,7 +103,7 @@ class Header extends React.Component {
     render() {
         let optionsClasses = 'transition-all duration-300 ease-in absolute right-0 mr-2 mt-8 z--9999 opacity-0 w-48 text-black bg-white rounded-md shadow-xl';
         if(this.state.displayOptions) {
-            optionsClasses = optionsClasses.replace(/mt-8 z--9999 opacity-0/, 'mt-2 z-10 opacity-100')
+            optionsClasses = optionsClasses.replace(/mt-8 z--9999 opacity-0/, 'mt-2 z-20 opacity-100')
         };
 
         let viewClasses = 'transition-all duration-300 ease-in px-3 py-5 m-0 focus:outline-none mr-2 cursor-pointer z-10';

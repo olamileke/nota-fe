@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { getVersions, deleteVersion, revertToVersion } from '../../services/version';
 import { getFormattedDate } from '../../services/date';
 import { notifySuccess, notifyError } from '../../services/notify';
+import { createPdf } from '../../services/pdf';
 
 class Versions extends React.Component {
 
@@ -12,6 +13,7 @@ class Versions extends React.Component {
         this.get = this.get.bind(this);
         this.revert = this.revert.bind(this);
         this.delete = this.delete.bind(this);
+        this.refs = [];
     }
 
     componentDidMount() {
@@ -109,9 +111,10 @@ class Versions extends React.Component {
 
     renderVersions() {
         const versions = [...this.state.versions];
+
         return versions.map((version, index) => {
-            return (
-                <div key={index} className='quicksand col-span-6 flex flex-col mb-5 bg-white shadow-lg p-5 bsm:p-8'>
+            return (                
+                <div key={version.hash} className='quicksand col-span-12 lg:col-span-6 flex flex-col mb-5 bg-white shadow-lg p-5 bsm:p-8'>
                     <div className='note mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:version.content }} style={{ height:'30vh' }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
@@ -119,9 +122,9 @@ class Versions extends React.Component {
                             {version.hash.slice(0,4)}
                         </div>
                         <div className='flex flex-row'>
-                            <button onClick={() => {this.revert(version.hash)}} className='focus:outline-none m-0 mr-3'>revert</button>
-                            <button className='focus:outline-none m-0 mr-3'>download</button>
-                            {this.state.versions.length > 1 && <button onClick={() => {this.delete(version.hash)}} className='focus:outline-none m-0'>delete</button>}
+                            <button onClick={() => {this.revert(version.hash)}} className='underline sm:no-underline focus:outline-none m-0 mr-3'>revert</button>
+                            <button onClick={() => {createPdf(version.note, version.hash, version.content)}} className='hidden sm:inline focus:outline-none m-0 mr-3'>download</button>
+                            {this.state.versions.length > 1 && <button onClick={() => {this.delete(version.hash)}} className='hidden sm:inline focus:outline-none m-0'>delete</button>}
                         </div>
                     </div>
                     <div className='quicksand mb-2'>
@@ -132,7 +135,11 @@ class Versions extends React.Component {
                     </div>
                     <div className='quicksand mb-2'>
                         created {getFormattedDate(version.created_at)}
-                    </div>        
+                    </div>  
+                    <div className='flex flex-row sm:hidden'>
+                        <button onClick={() => {createPdf(version.note, version.hash, version.content)}} className='underline focus:outline-none m-0 mr-3'>download</button>
+                        {this.state.versions.length > 1 && <button onClick={() => {this.delete(version.hash)}} className='underline focus:outline-none m-0'>delete</button>}
+                    </div>      
                 </div>
             )
         })

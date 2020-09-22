@@ -38,7 +38,7 @@ class Home extends React.Component {
             <div>
                 <div className='relative w-screen grid grid-cols-12 bg-cloudred landing__page'>
                     <div className='col-start-2 col-end-11 sm:col-end-10 bsm:col-end-8 md:col-end-7 lg:col-end-6 flex flex-col justify-center text-white quicksand landing__page'>
-                        <p className='m-0 text-2xl sm:text-3xl mb-5 font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
+                        <p className='m-0 text-2xl sm:text-3xl mb-5 sm:font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
                         <div className='flex flex-row'>
                             <p className='p-4 mr-3 cursor-pointer text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content" }}>Sign Up</p>
                             <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
@@ -54,29 +54,33 @@ class Home extends React.Component {
                         <p className='m-0'>nota</p>
                     </div>
                 </div>
-                <div className='grid grid-cols-12 py-24 bg-offwhite quicksand'>
+                <div className='grid grid-cols-12 pt-24 pb-16 md:py-32 bg-offwhite quicksand'>
                     <div className='col-start-2 col-end-12 lg:pr-12 grid grid-cols-12'>
                         <div className='hidden md:block col-span-5 relative versioning'>
                             <img src='/images/home/evolution.jpg' className='w-full h-full'/>
                             <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.1)" }}></div>
                         </div>
-                        <div className='col-span-12 text-center md:text-left md:col-start-6 md:col-span-7 md:pl-16 lg:col-start-7 lg:pl-5 text-justify lg:pr-10 lg:col-span-6 flex flex-col justify-center'>
-                             <p className='m-0 text-xl font-semibold mb-6'>track your note evolution with nota's note versioning feature</p>
-                             <p className='m-0 text-lg mb-2'>
+                        <div className='col-span-12 md:col-start-6 md:col-span-7 md:pl-16 lg:col-start-7 lg:pl-5 text-justify lg:pr-10 lg:col-span-6 flex flex-col justify-center'>
+                             <p className='m-0 text-xl text-center md:text-left font-semibold mb-6'>track your note evolution with nota</p>
+                             <p className='m-0 hidden md:inline text-lg mb-2'>
                                 nota has been especially crafted with usability in mind. new versions of your notes are generated every time you save it. 
                              </p>
-                             <p className='m-0 mb-2 text-lg'>
+                             <p className='m-0 hidden md:inline mb-2 text-lg'>
                                  take advantage of this to go down memory lane and view the very change and evolution of your note from inception to completion.
                              </p>
-                             <p className='m-0 text-lg'>
+                             <p className='m-0 hidden md:inline text-lg'>
+                                this also makes it remarkably easy to revert to previous versions of your notes. 
+                             </p>
+                             <p className='m-0 text-center text-lg leading-8 md:hidden'>
+                                nota has been especially crafted with usability in mind. new versions of your notes are generated every time you save it. 
+                                take advantage of this to go down memory lane and view the very change and evolution of your note from inception to completion.
                                 this also makes it remarkably easy to revert to previous versions of your notes. 
                              </p>
                         </div>
                     </div>
                 </div>
-                <div className='pt-16 pb-20 grid grid-cols-12 quicksand'>
+                <div className='pb-20 grid grid-cols-12 bg-offwhite quicksand'>
                     <div className='col-start-2 col-end-12  grid grid-cols-12 col-gap-3'>
-                        <div className='col-span-12 text-xl mb-8 font-semibold'>more about nota</div>
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/phone.jpg' className='object-cover w-full features__image' />
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>

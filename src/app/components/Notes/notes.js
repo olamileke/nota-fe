@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { getNotes, deleteNote } from '../../services/note';
 import { getFormattedDate } from '../../services/date';
 import { notifySuccess, notifyError } from '../../services/notify';
+import { createPdf } from '../../services/pdf';
 
 class Notes extends React.Component {
 
@@ -84,9 +85,9 @@ class Notes extends React.Component {
                             {note.title}
                         </div>
                         <div className='flex flex-row'>
-                            <button onClick={() => {this.props.update(note)}}  className='cursor-pointer focus:outline-none m-0 mr-3'>update</button>
-                            <button className='cursor-pointer focus:outline-none m-0 mr-3'>download</button>
-                            <button onClick={() => {this.delete(note._id)}} className='cursor-pointer focus:outline-none m-0'>delete</button>
+                            <button onClick={() => {this.props.update(note)}}  className='underline sm:no-underline cursor-pointer focus:outline-none m-0 mr-3'>update</button>
+                            <button onClick={() => { createPdf(note.title, null, note.content) }} className='hidden sm:inline cursor-pointer focus:outline-none m-0 mr-3'>download</button>
+                            <button onClick={() => {this.delete(note._id)}} className='hidden sm:inline cursor-pointer focus:outline-none m-0'>delete</button>
                         </div>
                     </div>
                     <div className='quicksand mb-2'>
@@ -97,7 +98,11 @@ class Notes extends React.Component {
                     </div>
                     <div className='quicksand mb-2'>
                         last updated {getFormattedDate(note.updated_at)}
-                    </div>              
+                    </div>       
+                    <div className='flex flex-row sm:hidden'>
+                        <button onClick={() => { createPdf(note.title, null, note.content) }} className='underline cursor-pointer focus:outline-none m-0 mr-3'>download</button>
+                        <button onClick={() => {this.delete(note._id)}} className='underline cursor-pointer focus:outline-none m-0'>delete</button>
+                    </div>
                 </div>
             )
         })
