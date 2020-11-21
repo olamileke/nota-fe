@@ -60,7 +60,7 @@ class AuthHome extends React.Component {
         const tabs = {};
         const stateTabs = Object.keys(this.state.tabs);
 
-        stateTabs.forEach(tab => {
+        stateTabs.forEach(tab => { 
             let value = false;
             if(view == tab) {
                 value = true;

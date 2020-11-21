@@ -26,7 +26,7 @@ class Overview extends React.Component {
         let numNotes;
         window.screen.width <= 768 ? numNotes = 4 : numNotes = 3;
 
-        this.props.toggleLoading();
+        this.props.toggleLoading(); 
 
         try {
             const response = await getNotes(numNotes, null);
@@ -102,11 +102,11 @@ class Overview extends React.Component {
                         <img src={this.props.avatar} className='w-full h-full rounded-full object-cover' />
                         <div className='absolute top-0 left-0 w-full h-full rounded-full' style={{ background:"rgba(0,0,0,0.0.07)" }}></div>
                     </div>
-                    <div className='mr-auto'>
+                    <div className='mr-auto break-words' style={{ width:'70%' }}>
                         {activity.action == 1 && <p className='m-0'>you created a new note {activity.note_title}</p>}
                         {activity.action == 2 && <p className='m-0'>you updated {activity.note_title}. update hash {activity.version}</p>}
                     </div>
-                    <div>
+                    <div className='ml-5'>
                         {getTimeFrom(activity.created_at)}
                     </div>
                  </div>

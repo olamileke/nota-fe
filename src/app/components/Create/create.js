@@ -25,11 +25,13 @@ class Create extends React.Component {
         }
     }
 
-    // componentDidUpdate(oldProps, newProps) {
-    //     if(!newProps.note) {
-    //         this.setState({ content:'' });
-    //     }
-    // }
+    componentDidUpdate(_oldProps) {
+        if(!this.props.note) {
+            if(this.state.content != '') {
+                this.change('');
+            }
+        }
+    }
 
     change(value) {
         let title = '';
