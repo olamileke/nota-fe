@@ -1,4 +1,9 @@
 
+.footer_img
+{
+    width:320px;
+}
+
 input
 {
     border-color:rgba(175, 92, 92, 0.18);
@@ -12,7 +17,7 @@ input:focus
 } 
 
 
-input:focus + .fa
+input:focus + .fa, input:focus + .fa + .fa
 {
     color:rgba(140, 47, 57, 0.6);
 }
@@ -118,6 +123,11 @@ input:focus + .fa
 
 @media(max-width:576px)
 {
+    .footer_img
+    {
+        width:200px;
+    }
+
     .form__border
     {
         border-radius:13px 13px 0 0;

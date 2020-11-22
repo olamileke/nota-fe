@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Signup from '../Signup/signup';
 import Login from '../Login/login';
 import './home.css';
@@ -14,6 +15,11 @@ class Home extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        const token = localStorage.getItem('nota_token');
+
+        if(token) {
+            this.props.history.push('/dashboard');
+        }
     }
 
     toggleSignup() {
@@ -79,7 +85,7 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='pb-20 grid grid-cols-12 bg-offwhite quicksand'>
+                <div className='grid grid-cols-12 bg-offwhite quicksand'>
                     <div className='col-start-2 col-end-12  grid grid-cols-12 col-gap-3'>
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/phone.jpg' className='object-cover w-full features__image' />
@@ -113,14 +119,10 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='py-48 sm:py-32 md:py-48 flex flex-row justify-center items-center bg-offwhite quicksand'>
-                    <div className='flex flex-col w-4/5 bsm:w-3/4 md:w-1/2 text-center'>
-                        <p className='m-0 mb-5 text-xl md:text-3xl font-semibold'>
-                            "Start writing no matter what. The water does not flow until the faucet is turned on."
-                        </p>
-                        <p className='m-0 text-xl'>
-                            Louis L'Armour
-                        </p>
+                <div className='pt-20 pb-24 lg:py-32 flex flex-col justify-center items-center bg-offwhite quicksand'>
+                    <div className='flex flex-col items-center col-start-4 col-end-9'>
+                        <img src='/images/home/hand.png' alt='Get writing today' className='footer_img w-64 mb-5' />
+                        <p className='m-0 text-lg text-center md:text-left px-8 md:px-0'>Get writing today. water does not flow until the faucet gets turned on</p>
                     </div>
                 </div>
                 <div className='py-16 bg-reddishbrown grid grid-cols-12 quicksand text-white'>
@@ -169,4 +171,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);

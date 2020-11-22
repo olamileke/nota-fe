@@ -8,11 +8,12 @@ class Signup extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { name:'', email:'', password:'', nameIsValid:true,
+        this.state = { name:'', email:'', password:'', togglePassword:false, nameIsValid:true,
         emailIsValid:true, passwordIsValid:true, requestActive:false };
 
         this.change = this.change.bind(this);
         this.signup = this.signup.bind(this);
+        this.toggleViewPassword = this.toggleViewPassword.bind(this);
     }
 
     change(event) {
@@ -29,6 +30,10 @@ class Signup extends React.Component {
                 break;
             case 'password':
                 validate = this.validatePassword(value);
+        }
+
+        if(name == 'password') {
+            value.length > 0 ? this.setState({ togglePassword:true }) : this.setState({ togglePassword:false });
         }
 
         this.setState({ [name]:value, [error]:validate });
@@ -60,6 +65,21 @@ class Signup extends React.Component {
         })
     }
 
+    toggleViewPassword() {
+        const toggle = document.getElementById('toggle');
+
+        if(toggle.classList.contains('fa-eye')) {
+            toggle.classList.remove('fa-eye');
+            toggle.classList.add('fa-eye-slash');
+            document.getElementById('passwordField').setAttribute('type', 'text');
+        }
+        else {
+            toggle.classList.remove('fa-eye-slash');
+            toggle.classList.add('fa-eye');
+            document.getElementById('passwordField').setAttribute('type', 'password');
+        }
+    }
+
     validateName(name) {
         const [fname, lname] = name.split(' ');
 
@@ -85,7 +105,10 @@ class Signup extends React.Component {
     }
 
     render() {
-    
+
+        let toggleClass = 'duration-300 ease-in transition-colors absolute cursor-pointer opacity-0 z--9999 top-0 right-0 mt-4 mr-3 fa fa-eye text-gray-600';
+        this.state.togglePassword ? toggleClass = toggleClass.replace(/opacity-0 z--9999/, 'opacity-100 z-10') : toggleClass = toggleClass;
+
         return (
             <div onClick={this.props.close} className={this.props.display ? 'transition-all duration-300 ease-in z-10 opacity-100 fixed top-0 left-0 w-screen h-screen flex flex-row items-end sm:items-center justify-center' :
             'transition-all duration-300 ease-in z--9999 opacity-0 fixed top-0 left-0 w-screen h-screen flex flex-row items-end sm:items-center justify-center'}>
@@ -105,8 +128,9 @@ class Signup extends React.Component {
                             {!this.state.emailIsValid && <p class='m-0 mt-2 text-xs text-red-500' style={{ fontFamily:"Kumbh Sans, sans-serif" }}>enter a valid email address</p>}
                         </div>
                         <div className='flex flex-col mb-5 relative'>
-                            <input id='password' type='password' name='password|passwordIsValid' value={this.state.password} onChange={ this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors border hover:border-grey-700 border focus:outline-none p-3 pl-10' placeholder='password' />
+                            <input id='passwordField' type='password' name='password|passwordIsValid' value={this.state.password} onChange={ this.change} className='quicksand text-gray-600 duration-300 ease-in transition-colors border hover:border-grey-700 border focus:outline-none p-3 pl-10' placeholder='password' />
                             <i className='duration-300 ease-in transition-colors absolute top-0 left-0 mt-4 ml-3 fa fa-key text-gray-600' style={{ top:"2px" }}></i>
+                            <i className={toggleClass} id='toggle' onClick={this.toggleViewPassword} style={{ top:"2px" }}></i>
                             {!this.state.passwordIsValid && <p class='m-0 mt-2 text-xs text-red-500' style={{ fontFamily:"Kumbh Sans, sans-serif" }}>must be at least 8 characters</p>}
                         </div>
                         <div className='mb-3 relative'>
