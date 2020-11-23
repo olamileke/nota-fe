@@ -16,6 +16,26 @@ const updateAvatar = formData => {
     return API.put('users', formData);
 }
 
+const checkValidEmail = data => {
+    const API = createAxiosObject();
+    return API.post('/resets', data);
+}
+
+const checkActivationToken = data => {
+    const API = createAxiosObject();
+    return API.patch(`/users`, data);
+}
+
+const checkPasswordResetToken = token => {
+    const API = createAxiosObject();
+    return API.get(`/resets/${token}`);
+}
+
+const changePassword = (token, data) => {
+    const API = createAxiosObject();
+    return API.put(`/resets/${token}`, data);
+}
+
 const isAuthenticated = () => {
     const token = localStorage.getItem('token');
 
@@ -31,4 +51,5 @@ const logout = () => {
     notifySuccess('logged out successfully');
 }
 
-export { createUser, authenticate, updateAvatar, isAuthenticated, logout };
+export { createUser, authenticate, updateAvatar, checkValidEmail, checkActivationToken,
+checkPasswordResetToken, changePassword, isAuthenticated, logout };

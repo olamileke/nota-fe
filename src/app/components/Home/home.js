@@ -1,16 +1,21 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { checkActivationToken, checkPasswordResetToken } from '../../services/user';
+import { notifyError, notifySuccess } from '../../services/notify';
 import Signup from '../Signup/signup';
 import Login from '../Login/login';
+import ChangePassword from '../Change-Password/change-password';
 import './home.css';
 
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { viewSignup:false, viewLogin:false };
+        this.state = { viewSignup:false, viewLogin:false, viewChangePassword:false, resetToken:null };
         this.toggleSignup = this.toggleSignup.bind(this);
         this.toggleLogin = this.toggleLogin.bind(this);
+        this.verifyEmail = this.verifyEmail.bind(this);
+        this.verifyResetToken = this.verifyResetToken.bind(this);
     }
 
     componentDidMount() {
@@ -19,6 +24,47 @@ class Home extends React.Component {
 
         if(token) {
             this.props.history.push('/dashboard');
+            return;
+        }
+
+        const path = window.location.pathname;
+
+        if(path.startsWith('/email/confirm/')) {
+            this.verifyEmail();
+            return;
+        }
+
+        if(path.startsWith('/password/change/')) {
+            this.verifyResetToken();
+        }
+    }
+
+    async verifyEmail() {
+        const token = this.props.match.params.token;
+        const data = {token};
+
+        try {
+            await checkActivationToken(data);
+            notifySuccess('email confirmed successfully!');
+        }
+        catch(error) {
+            if(error.response.status == 404) {
+                notifyError('invalid activation token!');
+            }
+        }
+    }
+
+    async verifyResetToken() {
+        const token = this.props.match.params.token;
+
+        try {
+            await checkPasswordResetToken(token);
+            this.setState({ viewChangePassword:true, resetToken:token });
+        }
+        catch(error) {
+            if(error.response.status == 400) {
+                notifyError('invalid reset token');
+            }
         }
     }
 
@@ -26,7 +72,8 @@ class Home extends React.Component {
      
         this.setState(state => ({
             viewSignup:!state.viewSignup,
-            viewLogin:false
+            viewLogin:false,
+            viewChangePassword:false,
         }))
     }
 
@@ -34,7 +81,8 @@ class Home extends React.Component {
      
         this.setState(state => ({
             viewLogin:!state.viewLogin,
-            viewSignup:false
+            viewSignup:false,
+            viewChangePassword:false,
         }))
     }
     
@@ -162,10 +210,11 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.state.viewSignup || this.state.viewLogin ? 'fixed top-0 left-0 transition-colors opacity-100 z-10 duration-300 ease-in w-screen h-screen' :
+                <div className={this.state.viewSignup || this.state.viewLogin || this.state.viewChangePassword ? 'fixed top-0 left-0 transition-colors opacity-100 z-10 duration-300 ease-in w-screen h-screen' :
                 'fixed top-0 left-0 transition-colors opacity-0 duration-300 z--9999 ease-in w-screen h-screen'} style={{ backgroundColor:"rgba(0,0,0,0.85)" }}></div>
                 <Signup display={ this.state.viewSignup } login={ this.toggleLogin } close={ this.toggleSignup } />
                 <Login display={ this.state.viewLogin } signup={ this.toggleSignup } close={ this.toggleLogin } />
+                <ChangePassword display={this.state.viewChangePassword} token={this.state.resetToken} switchToLogin={this.toggleLogin} />
             </div>
         )
     }

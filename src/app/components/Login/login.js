@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Loader from '../Loader/loader';
-import { authenticate } from '../../services/user';
+import { authenticate, checkValidEmail } from '../../services/user';
 import { notifySuccess, notifyError } from '../../services/notify';
 
 class Login extends React.Component {
@@ -10,6 +10,7 @@ class Login extends React.Component {
         super(props);
         this.state = { email:'', password:'', togglePassword:false, emailIsValid:true, passwordIsValid:true, requestActive:false };
         this.change = this.change.bind(this);
+        this.checkEmail = this.checkEmail.bind(this);
         this.login = this.login.bind(this);
         this.toggleViewPassword = this.toggleViewPassword.bind(this);
     }
@@ -25,6 +26,24 @@ class Login extends React.Component {
         }
 
         this.setState({ [name]:value, [error]:validate });
+    }
+
+    async checkEmail() {
+        if(!this.validateEmail(this.state.email)) {
+            notifyError('enter a valid email!');
+            return;
+        }
+
+        try {
+            const data = {email:this.state.email};
+            await checkValidEmail(data);
+            notifySuccess('complete the process at your email');
+        }
+        catch(error) {
+            if(error.response.status == 404) {
+                notifyError('user with email address does not exist');
+            }
+        }
     }
 
     login(event) {
@@ -117,10 +136,9 @@ class Login extends React.Component {
                     </form>
                     <hr/>
                     <div className='text-center flex flex-col pt-8 text-gray-900 sm:text-gray-700'>
-                        <p className='m-0 mb-2'>forgot your password? <a className='lg:underline'>reset</a></p>
+                        <p onClick={this.checkEmail} className='m-0 mb-2'>forgot your password? <a className='lg:underline cursor-pointer'>reset</a></p>
                         <p className='m-0'>don't have an account? <a className='lg:underline cursor-pointer' onClick={ this.props.signup }>sign up</a> </p>
                     </div>
-                    <i className='absolute top-0 left-0 mt-5 ml-5 fa fa-times text-2xl cursor-pointer' onClick={this.props.close}></i>
                 </div>
             </div>
         )

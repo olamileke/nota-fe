@@ -14,6 +14,8 @@ function App() {
 
             <Switch>
                 <Route path='/dashboard' component={AuthHome} />
+                <Route path='/email/confirm/:token' component={Home} />
+                <Route path='/password/change/:token' component={Home} />
                 <Route path='/' component={Home} />
             </Switch>
         </div>

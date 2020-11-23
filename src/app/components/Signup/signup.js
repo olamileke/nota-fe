@@ -142,7 +142,6 @@ class Signup extends React.Component {
                     <div className='text-center pt-8 text-gray-900 sm:text-gray-700'>
                         already have an account ? <a className='m-0 cursor-pointer lg:underline' onClick={this.props.login}>login</a>
                     </div>
-                    <i class='absolute top-0 left-0 mt-5 ml-5 fa fa-times text-2xl cursor-pointer' onClick={this.props.close}></i>
                 </div>
             </div>
         )
