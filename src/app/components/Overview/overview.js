@@ -12,7 +12,7 @@ class Overview extends React.Component {
         super(props);
         this.fetchNotes = this.fetchNotes.bind(this);
         this.fetchActivities = this.fetchActivities.bind(this);
-        this.state = { notes:[], activities:[], activityPage:1, totalActivities:0, requestActive:false };
+        this.state = { notes:[], activities:[], activityPage:1, totalActivities:0, requestActive:false, fetchedData:false };
     }
 
     componentDidMount() {
@@ -50,7 +50,7 @@ class Overview extends React.Component {
             let activities = [...this.state.activities];
             activities = activities.concat(response.data.data.activities);
             const totalActivities = response.data.data.totalActivities;
-            this.setState({ activities:activities, activityPage:page, totalActivities:totalActivities, requestActive:false });
+            this.setState({ activities:activities, activityPage:page, totalActivities:totalActivities, requestActive:false, fetchedData:true });
         }
         catch(error) {
             if(error.response.status == 401 && page > 1) {
@@ -135,13 +135,20 @@ class Overview extends React.Component {
 
         return (
             <div className='grid grid-cols-12 pb-6'>
-                <div className='col-span-12 mb-3 md:mb-0 md:col-span-5'>
+                {this.state.notes.length > 0 && <div className='col-span-12 mb-3 md:mb-0 md:col-span-5'>
                     {notes}
-                </div>
-                <div className='col-span-12 md:col-start-7 col-end-13 bg-white shadow-md' style={{ height:"fit-content" }}>
-                    {activities}
-                </div>
+                </div>}
 
+                {this.state.activities.length > 0 && <div className='col-span-12 md:col-start-7 col-end-13 bg-white shadow-md' style={{ height:"fit-content" }}>
+                    {activities}
+                </div>}
+
+                {this.state.activities.length == 0 && this.state.fetchedData && <div className='h-full col-span-12 flex flex-row justify-center items-center' style={{ height:'calc(100vh - 320px)' }}>
+                    <div className='flex flex-col items-center mt-24'>
+                        <img src='/images/auth-home/risk.png' className='mb-1' style={{ width:'55px', height:'55px' }} />
+                        <p className='m-0 text-lg quicksand'>nothing to display</p>
+                    </div>
+                </div>}
             </div>
         )
     }

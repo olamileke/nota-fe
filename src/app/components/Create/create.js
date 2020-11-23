@@ -26,7 +26,7 @@ class Create extends React.Component {
     }
 
     componentDidUpdate(_oldProps) {
-        if(!this.props.note) {
+        if(!this.props.note && _oldProps.note) {
             if(this.state.content != '') {
                 this.change('');
             }

@@ -9,7 +9,7 @@ class Notes extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { notes:[], totalNotes:0, notePage:1 };
+        this.state = { notes:[], totalNotes:0, notePage:1, fetchedNotes:false };
         this.get = this.get.bind(this);
         this.delete = this.delete.bind(this);
     }
@@ -27,7 +27,7 @@ class Notes extends React.Component {
             const response = await getNotes(null, page);
             const notes = response.data.data.notes;
             const totalNotes = response.data.data.totalNotes;
-            this.setState({ notes:notes, totalNotes:totalNotes, notePage:page });
+            this.setState({ notes:notes, totalNotes:totalNotes, notePage:page, fetchedNotes:true });
         }
         catch(error) {
             if(error.response.status == 401) {
@@ -142,12 +142,20 @@ class Notes extends React.Component {
 
         return (
             <div>
-                <div className='grid grid-cols-12 pb-3 col-gap-5'>
+                {this.state.notes.length > 0 && <div className='grid grid-cols-12 pb-3 col-gap-5'>
                     {notes}
-                </div>
-                <div>
+                </div>}
+
+                {this.state.notes.length > 0 && <div>
                     {pages}
-                </div>
+                </div>}
+
+                {this.state.notes.length == 0 && this.state.fetchedNotes && <div className='h-full flex flex-row justify-center items-center' style={{ height:'calc(100vh - 320px)' }}>
+                    <div className='flex flex-col items-center mt-24'>
+                        <img src='/images/auth-home/risk.png' className='mb-1' style={{ width:'55px', height:'55px' }} />
+                        <p className='m-0 text-lg quicksand'>nothing to display</p>
+                    </div>
+                </div>}
             </div>
         )
     }

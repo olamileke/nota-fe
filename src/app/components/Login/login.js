@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Loader from '../Loader/loader';
+import AltLoader from '../Alt-Loader/alt-loader.js';
 import { authenticate, checkValidEmail } from '../../services/user';
 import { notifySuccess, notifyError } from '../../services/notify';
 
@@ -8,7 +9,8 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { email:'', password:'', togglePassword:false, emailIsValid:true, passwordIsValid:true, requestActive:false };
+        this.state = { email:'', password:'', togglePassword:false, emailIsValid:true, passwordIsValid:true,
+        requestActive:false, resetActive:false };
         this.change = this.change.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
         this.login = this.login.bind(this);
@@ -34,6 +36,8 @@ class Login extends React.Component {
             return;
         }
 
+        this.setState({ resetActive:true });
+
         try {
             const data = {email:this.state.email};
             await checkValidEmail(data);
@@ -43,6 +47,9 @@ class Login extends React.Component {
             if(error.response.status == 404) {
                 notifyError('user with email address does not exist');
             }
+        }
+        finally {
+            this.setState({ resetActive:false });
         }
     }
 
@@ -140,6 +147,7 @@ class Login extends React.Component {
                         <p className='m-0'>don't have an account? <a className='lg:underline cursor-pointer' onClick={ this.props.signup }>sign up</a> </p>
                     </div>
                 </div>
+                <AltLoader display={this.state.resetActive} />
             </div>
         )
     }
