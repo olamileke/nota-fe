@@ -151,7 +151,7 @@ class Home extends React.Component {
                                 <p className='m-0 mb-5 text-xl'>security</p>
                                 <p className='m-0'>
                                     nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
-                                    script injections. files and images are also securely stored in the cloud.
+                                    script injections. 
                                 </p>
                             </div>
                         </div>
@@ -160,8 +160,8 @@ class Home extends React.Component {
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
                                 <p className='m-0 mb-5 text-xl'>note downloads</p>
                                 <p className='m-0'>
-                                    nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
-                                    script injections. files and images are also securely stored in the cloud.
+                                    generate your notes as downloadable pdfs with nota. with this, easily have your notes for use on other devices
+                                    and platforms.
                                 </p>
                             </div>
                         </div>

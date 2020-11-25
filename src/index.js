@@ -10,5 +10,6 @@ ReactDom.render(
     </Router>, document.getElementById('root')
 );
 
-
+// registering the service worker for pwas
 serviceWorker.register();
+
