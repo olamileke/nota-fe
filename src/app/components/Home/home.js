@@ -112,7 +112,7 @@ class Home extends React.Component {
                     <div className='col-start-2 col-end-12 lg:pr-12 grid grid-cols-12'>
                         <div className='hidden md:block col-span-5 relative versioning'>
                             <img src='/images/home/evolution.jpg' className='w-full h-full'/>
-                            <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.1)" }}></div>
+                            <div className='absolute top-0 left-0 w-full h-full' style={{ backgroundColor:"rgba(0,0,0,0.23)" }}></div>
                         </div>
                         <div className='col-span-12 md:col-start-6 md:col-span-7 md:pl-16 lg:col-start-7 lg:pl-5 text-justify lg:pr-10 lg:col-span-6 flex flex-col justify-center'>
                              <p className='m-0 text-xl text-center md:text-left font-semibold mb-6'>track your note evolution with nota</p>
@@ -137,7 +137,7 @@ class Home extends React.Component {
                     <div className='col-start-2 col-end-12  grid grid-cols-12 col-gap-3'>
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/phone.jpg' className='object-cover w-full features__image' />
-                            <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
+                            <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.55)" }}>
                                 <p className='m-0 mb-5 text-xl'>WYSIWYG</p>
                                 <p className='m-0'>
                                 nota comes powered with a wysiwyg editor enabling you to create nicely formatted text. 
