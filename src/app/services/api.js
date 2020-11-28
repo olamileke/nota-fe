@@ -16,7 +16,7 @@ const createAxiosObject = (multipart = false) => {
     }  
 
     const API = axios.create({
-        baseURL:"http://localhost:4000/api/v1/",
+        baseURL:"https://nota-be.vercel.app/api/v1/",
         headers:headers
     })
 
