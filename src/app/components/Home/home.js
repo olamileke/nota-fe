@@ -48,7 +48,7 @@ class Home extends React.Component {
             notifySuccess('email confirmed successfully!');
         }
         catch(error) {
-            if(error.response.status == 404) {
+            if(error.response && error.response.status == 404) {
                 notifyError('invalid activation token!');
             }
         }
@@ -62,7 +62,7 @@ class Home extends React.Component {
             this.setState({ viewChangePassword:true, resetToken:token });
         }
         catch(error) {
-            if(error.response.status == 400) {
+            if(error.response && error.response.status == 400) {
                 notifyError('invalid reset token');
             }
         }

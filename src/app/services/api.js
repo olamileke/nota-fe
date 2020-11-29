@@ -22,7 +22,10 @@ const createAxiosObject = (multipart = false) => {
 
     API.interceptors.response.use(response => response, error => {
         
-        console.log(error.response);
+        if(!error.response) {
+            notifyError('an error occured');
+        }
+
         if(error.response.status.toString().startsWith('5') && !error.response.config.url.includes('activities')) {
             notifyError('an error occured');
         }

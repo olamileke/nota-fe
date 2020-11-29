@@ -13,7 +13,6 @@ class Versions extends React.Component {
         this.get = this.get.bind(this);
         this.revert = this.revert.bind(this);
         this.delete = this.delete.bind(this);
-        this.refs = [];
     }
 
     componentDidMount() {
@@ -32,7 +31,7 @@ class Versions extends React.Component {
             this.setState({ versions:versions, totalVersions:totalVersions, versionPage:page });
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');
@@ -66,7 +65,7 @@ class Versions extends React.Component {
             notifySuccess(`#${this.state.versions[0].note} reverted to version ${hash}`);
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');
@@ -98,7 +97,7 @@ class Versions extends React.Component {
             notifySuccess(`${hash} deleted successfully`);
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');

@@ -44,7 +44,8 @@ class Login extends React.Component {
             notifySuccess('complete the process at your email');
         }
         catch(error) {
-            if(error.response.status == 404) {
+
+            if(error.response && error.response.status == 404) {
                 notifyError('user with email address does not exist');
             }
         }
@@ -75,8 +76,8 @@ class Login extends React.Component {
         })
         .catch(error => {
             this.setState({ requestActive:false });
-            
-            if(error.response.status == 404) {
+
+            if(error.response && error.response.status == 404) {
                 notifyError('Incorrect username or password');
                 return;
             }

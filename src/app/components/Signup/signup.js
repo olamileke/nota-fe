@@ -58,7 +58,7 @@ class Signup extends React.Component {
         .catch(error => {
             this.setState({ requestActive:false });
 
-            if(error.response.status == 400) {
+            if(error.response && error.response.status == 400) {
                 notifyError('user with email exists!');
                 return;
             }

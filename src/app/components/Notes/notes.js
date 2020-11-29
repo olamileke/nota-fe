@@ -30,7 +30,7 @@ class Notes extends React.Component {
             this.setState({ notes:notes, totalNotes:totalNotes, notePage:page, fetchedNotes:true });
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');
@@ -62,7 +62,7 @@ class Notes extends React.Component {
             notifySuccess('note deleted successfully');
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');

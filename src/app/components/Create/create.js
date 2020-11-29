@@ -80,7 +80,7 @@ class Create extends React.Component {
             notifySuccess('note saved successfully!');
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');
@@ -106,7 +106,7 @@ class Create extends React.Component {
             notifySuccess('note updated successfully!');
         }
         catch(error) {
-            if(error.response.status == 401) {
+            if(error.response && error.response.status == 401) {
                 this.props.history.push('/');
                 localStorage.clear();
                 notifyError('you are not logged in');

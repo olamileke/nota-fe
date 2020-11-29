@@ -42,7 +42,7 @@ class ChangePassword extends React.Component {
                 this.props.switchToLogin();
             }
             catch(error) {
-                if(error.response.status == 400) {
+                if(error.response && error.response.status == 400) {
                     notifyError('invalid reset token');
                 }
             }
