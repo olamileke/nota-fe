@@ -52,7 +52,7 @@ class Signup extends React.Component {
 
         createUser(user)
         .then(response => {
-            notifySuccess('Signed up successfully');
+            notifySuccess('complete the process at your email!');
             this.setState({ name:'', email:'', password:'', requestActive:false });
         })
         .catch(error => {
