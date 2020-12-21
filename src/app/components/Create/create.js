@@ -128,7 +128,7 @@ class Create extends React.Component {
                 <div className='relative bg-white shadow-lg col-span-12 lg:col-span-6 mb-3 lg:mb-0'>
                     <ReactQuill value={this.state.content} onChange={this.change} />
                 </div>
-                <div className='quicksand col-span-12 lg:col-start-7 lg:col-span-5 lg:ml-16 bg-white shadow-lg flex flex-col p-8' style={{ height:"fit-content" }}>
+                <div className='quicksand col-span-12 lg:col-start-7 lg:col-span-5 lg:ml-16 bg-white shadow-lg flex flex-col p-8' style={{ height:"max-content" }}>
                     {this.state.title != '' && <p className={titleClass}>#{this.state.title}</p>}
                     {this.state.title == '' && <p className={titleClass}>#new</p>}
                     {this.props.note && <p className='m-0 mb-5'>created {getFormattedDate(this.props.note.created_at)}</p>}

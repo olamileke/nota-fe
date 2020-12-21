@@ -81,7 +81,7 @@ class Notes extends React.Component {
                     <div className='note mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:note.content }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
-                        <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
+                        <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold firefox__font'>
                             {note.title}
                         </div>
                         <div className='flex flex-row'>

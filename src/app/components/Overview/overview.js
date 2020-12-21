@@ -71,7 +71,7 @@ class Overview extends React.Component {
         return notes.map(note => {
             return <div key={note._id} className='bg-white shadow-md w-full flex flex-col mb-5 p-6'>
                 <div className='flex flex-row justify-between items-center mb-5'>
-                    <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
+                    <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold firefox__font'>
                         {note.title}
                     </div>
                     <div onClick={() => {this.props.viewNote(note)}} className='cursor-pointer quicksand underline mr-8'>
@@ -115,7 +115,7 @@ class Overview extends React.Component {
 
         if(activities.length > 0) {
         return (<div className='flex flex-col p-6 bsm:p-8 quicksand'>
-                <p className='m-0 mb-8 p-2 bg-cloudred rounded text-white' style={{ width:'fit-content' }}>recently</p>
+                <p className='m-0 mb-8 p-2 bg-cloudred rounded text-white' style={{ width:'max-content' }}>recently</p>
                 <div className='flex flex-col'>
                     {activities}
                 </div>

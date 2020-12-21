@@ -92,7 +92,7 @@ class Home extends React.Component {
             <div>
                 <div className='relative w-screen grid grid-cols-12 bg-cloudred landing__page'>
                     <div className='col-start-2 col-end-11 sm:col-end-10 bsm:col-end-8 md:col-end-7 lg:col-end-6 flex flex-col justify-center text-white quicksand landing__page'>
-                        <p className='m-0 text-2xl sm:text-3xl mb-5 sm:font-semibold'>note taking on steroids. a much better, much improved way to take notes</p>
+                        <p className='m-0 text-2xl sm:text-3xl mb-5 sm:font-semibold firefox__font'>note taking on steroids. a much better, much improved way to take notes</p>
                         <div className='flex flex-row'>
                             <p className='p-4 mr-3 cursor-pointer text-white shadow-lg' onClick={this.toggleSignup} style={{ width:"max-content" }}>Sign Up</p>
                             <p className='p-4 cursor-pointer' onClick={this.toggleLogin} style={{ width:"max-content", boxShadow:"0px 3px 3px 2px rgba(0,0,0,0.1)" }}>Sign In</p>
@@ -138,8 +138,8 @@ class Home extends React.Component {
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/phone.jpg' className='object-cover w-full features__image' />
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.55)" }}>
-                                <p className='m-0 mb-5 text-xl'>WYSIWYG</p>
-                                <p className='m-0'>
+                                <p className='m-0 mb-5 text-xl firefox__font'>WYSIWYG</p>
+                                <p className='m-0 firefox__font'>
                                 nota comes powered with a wysiwyg editor enabling you to create nicely formatted text. 
                                 leverage these mechanisms to create and format notes to your liking.
                                 </p>
@@ -148,8 +148,8 @@ class Home extends React.Component {
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/secure.jpg' className='object-cover w-full features__image' />
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
-                                <p className='m-0 mb-5 text-xl'>security</p>
-                                <p className='m-0'>
+                                <p className='m-0 mb-5 text-xl firefox__font'>security</p>
+                                <p className='m-0 firefox__font'>
                                     nota makes use of industry best practices to provide auto escaping of content to prevent attacks like
                                     script injections. 
                                 </p>
@@ -158,8 +158,8 @@ class Home extends React.Component {
                         <div className='col-span-12 lg:col-span-4 relative mb-3 lg:mb-0'>
                             <img src='/images/home/integrity.jpg' className='object-cover w-full features__image' />
                             <div className='absolute top-0 left-0 p-8 w-full h-full flex flex-col justify-center text-white font-semibold' style={{ background:"rgba(0,0,0,0.6)" }}>
-                                <p className='m-0 mb-5 text-xl'>note downloads</p>
-                                <p className='m-0'>
+                                <p className='m-0 mb-5 text-xl firefox__font'>note downloads</p>
+                                <p className='m-0 firefox__font'>
                                     generate your notes as downloadable pdfs with nota. with this, easily have your notes for use on other devices
                                     and platforms.
                                 </p>
@@ -175,12 +175,12 @@ class Home extends React.Component {
                 </div>
                 <div className='py-16 bg-reddishbrown grid grid-cols-12 quicksand text-white'>
                     <div className='mb-6 bsm:mb-0 col-start-2 col-end-12 bsm:col-end-5 flex flex-col'>
-                        <p className='m-0 font-semibold text-xl mb-4'>NOTA</p>
+                        <p className='m-0 font-semibold text-xl mb-4 firefox__font'>NOTA</p>
                         <p className='m-0'>note taking redefined. take advantage of the latest technology to create your notes and jot down your thoughts.
                         <div className='hidden lg:block'>never have to be apart from your thoughts.</div></p>
                     </div>
                     <div className='flex flex-col col-start-2 col-end-12 mb-6 bsm:mb-0 bsm:col-start-6 bsm:col-end-9 lg:pl-4'>
-                        <p className='m-0 font-semibold text-xl mb-4'>CONTACT</p>
+                        <p className='m-0 font-semibold text-xl mb-4 firefox__font'>CONTACT</p>
                         <div className='flex flex-row items-center mb-3'>
                             <i className='fas fa-map-marker-alt mr-3'></i>
                             <p className='m-0'>3, Bisi Awosika Street, Ologolo, Lekki</p>
@@ -195,7 +195,7 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <div className='flex flex-col col-start-2 col-end-12 bsm:col-start-10 bsm:col-end-13 md:col-end-12'>
-                        <p className='m-0 font-semibold text-xl mb-4'>SOCIAL MEDIA</p>
+                        <p className='m-0 font-semibold text-xl mb-4 firefox__font'>SOCIAL MEDIA</p>
                         <div className='flex flex-row items-center mb-3'>
                             <i className='fab fa-facebook mr-3'></i>
                             <a href='https://www.facebook.com/fambegbe.olamileke' target="_blank"> Facebook</a>

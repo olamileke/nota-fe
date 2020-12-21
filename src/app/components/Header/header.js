@@ -144,16 +144,16 @@ class Header extends React.Component {
                             N
                         </div>
                         <div className={optionsClasses} style={{ top:"60%", borderRadius:"3px" }}>
-                            <button className='outline-none py-4 hover:bg-gray-200 focus:outline-none font-semibold text-sm text-center w-full'>
+                            <button className='outline-none py-4 hover:bg-gray-200 focus:outline-none font-semibold text-sm text-center w-full firefox__font'>
                                 { this.state.user.email }
                             </button>
-                            {!this.state.avatarToUpload && <button onClick={this.clickFileInput} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full'>
+                            {!this.state.avatarToUpload && <button onClick={this.clickFileInput} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full firefox__font'>
                                 change avatar
                             </button>}
-                            {this.state.avatarToUpload && <button onClick={this.uploadAvatar} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full'>
+                            {this.state.avatarToUpload && <button onClick={this.uploadAvatar} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-sm font-semibold text-center w-full firefox__font'>
                                 upload avatar
                             </button>}
-                            <button onClick={this.signOut} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-center text-sm font-semibold text-black w-full'>
+                            <button onClick={this.signOut} className='outline-none hover:bg-gray-200 focus:outline-none py-4 text-center text-sm font-semibold text-black w-full firefox__font'>
                                 sign out
                             </button>
                         </div>

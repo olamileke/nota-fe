@@ -117,7 +117,7 @@ class Versions extends React.Component {
                     <div className='note mb-5 overflow-y-auto' dangerouslySetInnerHTML={{ __html:version.content }} style={{ height:'30vh' }}>
                     </div> 
                     <div className='flex flex-row justify-between items-center mb-5'>
-                        <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold'>
+                        <div className='w-16 h-16 bg-cloudred flex flex-row justify-center items-center text-white font-semibold firefox__font'>
                             {version.hash.slice(0,4)}
                         </div>
                         <div className='flex flex-row'>
